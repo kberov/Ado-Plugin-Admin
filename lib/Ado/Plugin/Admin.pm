@@ -1,15 +1,16 @@
 package Ado::Plugin::Admin;
-use Mojo::Base 'Ado::Plugin';
+use Mojo::Base qw(Ado::Plugin);
 our $VERSION = '0.01';
 
 sub register {
-    my ($self, $app, $config) = shift->initialise(@_);
-    # Do your magic here.
-    # You may want to add some helpers
-    # or some new complex routes definitions,
-    # or register this plugin as a template renderer.
-    # Look in Mojolicious and Ado sources for examples and inspiration.
-    return $self;
+  my ($self, $app, $config) = shift->initialise(@_);
+
+  # Do your magic here.
+  # You may want to add some helpers
+  # or some new complex routes definitions,
+  # or register this plugin as a template renderer.
+  # Look in Mojolicious and Ado sources for examples and inspiration.
+  return $self;
 }
 
 1;
@@ -20,20 +21,37 @@ __END__
 
 =head1 NAME
 
-Ado::Plugin::Admin - an Ado Plugin that does foooooo.
+Ado::Plugin::Admin - system (site) administration user interface
 
 =head1 SYNOPSIS
 
-  # /home/berov/opt/public_dev/Ado/etc/ado.config
+  #Add this plugin to configuration file
+  # /home/you/whereinstalled/Ado/etc/ado.$mode.config
   plugins => {
     # other plugins here...
-    'Admin',
-    # other plugins here...
+    'admin',
+    # other plugins depending on Ado::Plugin::Admin here...
   }
 
 =head1 DESCRIPTION
 
-L<Ado::Plugin::Admin> is an L<Ado> plugin.
+L<Ado::Plugin::Admin> provides:
+
+=over
+
+=item * REST API for default home page for the administration area
+of your site or web-application;
+
+=item * API for other plugins that want to provide user interface for administering various parts of the application;
+
+=item * Default UI consisting of a left panel and a default dashboard.
+The dashborad consists of descriptions of the installed plugins that
+provide description for the dashboard
+
+B<Note:> This software is not funtional yet!
+
+
+=back
 
 =head1 METHODS
 
@@ -53,11 +71,11 @@ L<Ado::Manual>, L<Mojolicious>,  L<http://mojolicio.us>.
 
 =head1 AUTHOR
 
-Your Name
+Krasimir Berov
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2015 Your Name.
+Copyright 2015 Krasimir Berov.
 
 This program is free software, you can redistribute it and/or
 modify it under the terms of the 
