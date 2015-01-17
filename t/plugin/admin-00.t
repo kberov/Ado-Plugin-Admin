@@ -5,6 +5,7 @@ use Test::Mojo;
 my $t = Test::Mojo->new('Ado');
 
 my $class = 'Ado::Plugin::Admin';
+use_ok($class);
 isa_ok($class, 'Ado::Plugin');
 can_ok($class, 'register');
 
