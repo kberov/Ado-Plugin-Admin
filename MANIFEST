@@ -1,0 +1,6 @@
+Build.PL
+etc/plugins/admin.conf
+lib/Ado/Plugin/Admin.pm
+LICENSE
+MANIFEST			This list of files
+t/plugin/admin-00.t
