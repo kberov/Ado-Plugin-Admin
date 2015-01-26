@@ -10,6 +10,7 @@ sub items {
   my $self = shift;
   return $self->{items} = c(map { Ado::UI::MenuItem->new($_) } @_) if @_;
   return $self->{items} = c() unless $self->{items};
+  return $self->{items};
 }
 
 sub add_item {

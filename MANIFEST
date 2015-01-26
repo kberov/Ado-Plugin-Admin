@@ -9,5 +9,11 @@ MANIFEST			This list of files
 META.json
 META.yml
 README
+t/.perlcriticrc
+t/.perltidyrc
+t/manifest.t
+t/perl-critic.t
 t/plugin/admin-00.t
 t/plugin/admin_menu.t
+t/pod-coverage.t
+t/pod.t
