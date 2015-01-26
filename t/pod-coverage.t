@@ -5,8 +5,8 @@ use warnings FATAL => 'all';
 use Test::More;
 
 if (not $ENV{TEST_AUTHOR}) {
-    my $msg = 'Author test.  Set $ENV{TEST_AUTHOR} to a true value to run.';
-    plan(skip_all => $msg);
+  my $msg = 'Author test.  Set $ENV{TEST_AUTHOR} to a true value to run.';
+  plan(skip_all => $msg);
 }
 
 # Ensure a recent version of Test::Pod::Coverage
@@ -22,12 +22,12 @@ eval "use Pod::Coverage $min_pc";
 plan skip_all => "Pod::Coverage $min_pc required for testing POD coverage"
   if $@;
 my $trustme = {
-    trustme => [
-        qr/^(
+  trustme => [
+    qr/^(
   ALIASES|CHECKS|COLUMNS|
   PRIMARY_KEY|TABLE|is_base_class|dbix
 )$/x
-    ]
+  ]
 };
 all_pod_coverage_ok($trustme);
 

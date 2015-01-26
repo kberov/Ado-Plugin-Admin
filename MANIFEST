@@ -2,8 +2,7 @@ Build.PL
 Changes
 etc/plugins/admin.conf
 lib/Ado/Plugin/Admin.pm
-lib/Ado/UI/AdminMenu.pm
-lib/Ado/UI/MenuItem.pm
+lib/Ado/UI/Menu.pm
 LICENSE
 MANIFEST			This list of files
 META.json
