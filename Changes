@@ -1,0 +1,7 @@
+Revision history for Ado-Plugin-Admin
+
+0.02 2015-01-26
+  - Implemented Ado::UI::AdminMenu and Ado::UI::MenuItem.
+
+0.01 2015-01-18
+  - Released first dummy version.

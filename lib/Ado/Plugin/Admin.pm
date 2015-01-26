@@ -1,6 +1,6 @@
 package Ado::Plugin::Admin;
 use Mojo::Base qw(Ado::Plugin);
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub register {
   my ($self, $app, $config) = shift->initialise(@_);
@@ -49,7 +49,6 @@ The dashborad consists of descriptions of the installed plugins that
 provide description for the dashboard
 
 B<Note:> This software is not funtional yet!
-
 
 =back
 

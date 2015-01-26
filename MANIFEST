@@ -1,9 +1,13 @@
 Build.PL
+Changes
 etc/plugins/admin.conf
 lib/Ado/Plugin/Admin.pm
+lib/Ado/UI/AdminMenu.pm
+lib/Ado/UI/MenuItem.pm
 LICENSE
 MANIFEST			This list of files
-t/plugin/admin-00.t
-README
-META.yml
 META.json
+META.yml
+README
+t/plugin/admin-00.t
+t/plugin/admin_menu.t
