@@ -1,6 +1,8 @@
 Build.PL
 Changes
 etc/plugins/admin.conf
+lib/Ado/Control/Ado/Default.pm
+lib/Ado/Control/Ado/Users.pm
 lib/Ado/Plugin/Admin.pm
 lib/Ado/UI/Menu.pm
 LICENSE
