@@ -1,18 +1,34 @@
 package Ado::Plugin::Admin;
-use Mojo::Base qw(Ado::Plugin);
+use Mojo::Base 'Ado::Plugin';
+use Ado::UI::Menu;
+use Mojo::Util qw(encode monkey_patch);
 our $VERSION = '0.02';
 
 sub register {
   my ($self, $app, $config) = shift->initialise(@_);
+  $self->_init_admin_menu();
 
-  # Do your magic here.
-  # You may want to add some helpers
-  # or some new complex routes definitions,
-  # or register this plugin as a template renderer.
-  # Look in Mojolicious and Ado sources for examples and inspiration.
   return $self;
 }
 
+sub _init_admin_menu {
+  my $self = shift;
+  my $menu = Ado::UI::Menu->new(header => 1, icon => 'ado', title => 'Plugins');
+  $menu->items(
+    {title => 'Dashboard', url   => '/ado', icon => 'dashboard'},
+    {icon  => 'content',   title => 'Content'},
+    {icon  => 'setting',   title => 'System'}
+    )->first(sub { $_[0]->title eq 'System' })->items(
+    {icon => 'settings', title => 'Settings', url => '/ado-settings'},
+    {icon => 'users',    title => 'Users',    url => '/ado-users'},
+    );
+  $menu->items->first(sub { $_[0]->title eq 'Content' })->items(
+    {icon => 'browser', title => 'Pages', url => '/ado-pages'},
+    {icon => 'content', title => 'Blog',  url => '/ado-blog'},
+  );
+  monkey_patch ref($self->app), admin_menu => sub {$menu};
+  return;
+}
 1;
 
 __END__
@@ -33,6 +49,13 @@ Ado::Plugin::Admin - system (site) administration user interface
     # other plugins depending on Ado::Plugin::Admin here...
   }
 
+  #run/restart ado
+  $ cd /hereis/ado
+  morbo ./bin/ado
+
+  #go to http://localhost:3000/ado
+  #enjoy
+
 =head1 DESCRIPTION
 
 L<Ado::Plugin::Admin> provides:
@@ -45,7 +68,7 @@ of your site or web-application;
 =item * API for other plugins that want to provide user interface for administering various parts of the application;
 
 =item * Default UI consisting of a left panel and a default dashboard.
-The dashborad consists of descriptions of the installed plugins that
+The dashboard consists of descriptions of the installed plugins that
 provide description for the dashboard
 
 B<Note:> This software is not funtional yet!
