@@ -10,6 +10,13 @@ SYNOPSIS
         # other plugins depending on Ado::Plugin::Admin here...
       }
 
+      #run/restart ado
+      $ cd /hereis/ado
+      morbo ./bin/ado
+
+      #go to http://localhost:3000/ado
+      #enjoy
+
 DESCRIPTION
     Ado::Plugin::Admin provides:
 
@@ -20,7 +27,7 @@ DESCRIPTION
         administering various parts of the application;
 
     *   Default UI consisting of a left panel and a default dashboard. The
-        dashborad consists of descriptions of the installed plugins that
+        dashboard consists of descriptions of the installed plugins that
         provide description for the dashboard
 
         Note: This software is not funtional yet!
@@ -32,9 +39,10 @@ METHODS
   register
       $plugin->register(Ado->new);
 
-    Register plugin in Ado application.
+    Initializes and registers plugin in Ado application.
 
 SEE ALSO
+    Ado::UI::Menu, Ado::Control::Ado::Default, Ado::Control::Ado::Users,
     Ado::Plugin, Mojolicious::Guides::Growing, Ado::Manual, Mojolicious,
     <http://mojolicio.us>.
 
