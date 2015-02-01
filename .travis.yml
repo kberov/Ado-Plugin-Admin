@@ -9,7 +9,7 @@ branches:
 env:
   global:
     - "HARNESS_OPTIONS=j3"
-    - "cpanm -n --installdeps ."
+    - "cpanm --mirror http://cpan.cpantesters.org -n --installdeps ."
   matrix:
     - TEST_AUTHOR=1
     - TEST_AUTHOR=0
