@@ -78,7 +78,7 @@ L<http://fortawesome.github.io/Font-Awesome/icons/>.
   $item->title('Dashboard');
   $item->title; # Dashboard
 
-Strimg. Used to display the text of the menu item.
+String. Used to display the text of the menu item.
 
 =head2 url
 
@@ -110,7 +110,7 @@ Adds an item at the end of the L</items> collection and returns C<$self>.
 
 =head1 SEE ALSO
 
-L<Ado::Plugin::Admnin>, L<Mojo::Collection>
+L<Ado::Plugin::Admin>, L<Mojo::Collection>
 
 =head1 AUTHOR
 

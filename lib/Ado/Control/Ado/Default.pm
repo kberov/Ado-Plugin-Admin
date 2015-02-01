@@ -34,12 +34,12 @@ Ado::Control::Ado::Default - The default controller for the back-office.
 
 =head1 SYNOPSIS
 
-#in your browser go to
-http://your-host/ado/default/index
-#or
-http://your-host/ado/default
-#or
-http://your-host/ado
+  #in your browser go to
+  http://your-host/ado-default/index
+  #or
+  http://your-host/ado-default
+  #or
+  http://your-host/ado
 
 =head1 DESCRIPTION
 
@@ -48,13 +48,17 @@ Ado::Control::Ado::Default is the default controller class for the back-office a
 =head1 ATTRIBUTES
 
 Ado::Control::Ado::Default inherits all the attributes from 
-<Ado::Control::Ado> and defines the following ones.
+L<Ado::Control::Ado>.
 
 =head1 METHODS/ACTIONS
 
+L<Ado::Control::Ado::Default> inherits all methods from
+L<Ado::Control::Ado> and implements the following new ones.
+
+
 =head2 index
 
-C<index> is the default action for the back-office application L<Ado::Control::Ado>.
+The default action for the back-office application L<Ado::Control::Ado>.
 
 =cut
 
@@ -71,8 +75,11 @@ C<index> is the default action for the back-office application L<Ado::Control::A
 The original author
 
 =head1 SEE ALSO
-L<Ado::Control::Ado>,
-L<Ado::Control>, L<Mojolicious::Controller>, L<Mojolicious::Guides::Growing/Model_View_Controller>,
+
+
+L<Ado::Plugin::Admin>, L<Ado::Control::Ado>,
+L<Ado::Control>, L<Mojolicious::Controller>,
+L<Mojolicious::Guides::Growing/Model_View_Controller>,
 L<Mojolicious::Guides::Growing/Controller_class>
 
 

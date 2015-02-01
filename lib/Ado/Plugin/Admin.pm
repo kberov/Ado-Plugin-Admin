@@ -85,10 +85,11 @@ L<Ado::Plugin> and implements the following new ones.
 
   $plugin->register(Ado->new);
 
-Register plugin in L<Ado> application.
+Initializes and registers plugin in L<Ado> application.
 
 =head1 SEE ALSO
 
+L<Ado::UI::Menu>, L<Ado::Control::Ado::Default>, L<Ado::Control::Ado::Users>,
 L<Ado::Plugin>, L<Mojolicious::Guides::Growing>,
 L<Ado::Manual>, L<Mojolicious>,  L<http://mojolicio.us>.
 

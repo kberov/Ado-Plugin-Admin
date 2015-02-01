@@ -79,10 +79,13 @@ back-office application.
 =head1 ATTRIBUTES
 
 L<Ado::Control::Ado::Users> inherits all the attributes from 
-<Ado::Control::Ado> and defines the following ones.
+<Ado::Control::Ado>.
 
 =head1 METHODS/ACTIONS
-                     
+
+L<Ado::Control::Ado::Users> inherits all methods from
+L<Ado::Control::Ado> and implements the following new ones.
+        
 =head2 list
 
 Displays the users this system has.
@@ -96,19 +99,19 @@ L<http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.14>.
 
 =head2 add
 
-Adds a user to the table users. Not implemented yet
+Adds a user to the table users. Not implemented yet.
 
 =head2 show
 
-Displays a user. Not implemented yet
+Displays a user. Not implemented yet.
 
 =head2 update
 
-Updates a user. Not implemented yet
+Updates a user. Not implemented yet.
 
 =head2 disable
 
-Disables a user. Not implemented yet
+Disables a user. Not implemented yet.
 
 =head1 SPONSORS
 
@@ -116,7 +119,7 @@ The original author
 
 =head1 SEE ALSO
 
-L<Ado::Control::Ado::Default>,
+L<Ado::Plugin::Admin>, L<Ado::Control::Ado::Default>,
 L<Ado::Control>, L<Mojolicious::Controller>,
 L<Mojolicious::Guides::Growing/Model_View_Controller>,
 L<Mojolicious::Guides::Growing/Controller_class>
