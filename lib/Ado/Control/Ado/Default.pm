@@ -8,25 +8,19 @@ sub index {
     return;
 }
 
-sub form {
-    my $c = shift;
-    $c->render(text => __PACKAGE__ . '::form', layout => 'default');
-    return;
-}
-
-
 #available groups on this system
-sub groups {
-    my $c      = shift;
-    my @range  = ($c->param('limit') || 10, $c->param('offset') || 0,);
-    my @groups = Ado::Model::Groups->select_range(@range);
+#TODO: move to Ado::Control::Ado::Groups
+# sub groups {
+#   my $c      = shift;
+#   my @range  = ($c->param('limit') || 10, $c->param('offset') || 0,);
+#   my @groups = Ado::Model::Groups->select_range(@range);
 
-    #content negotiation
-    return $c->respond_to(
-        json => {json => [map { $_->data } @groups],},
-        any => {text => '', status => 204}
-    );
-}
+#   #content negotiation
+#   return $c->respond_to(
+#     json => {json => [map { $_->data } @groups],},
+#     any => {text => '', status => 204}
+#   );
+# }
 
 1;
 
@@ -62,16 +56,15 @@ Ado::Control::Ado::Default inherits all the attributes from
 
 C<index> is the default action for the back-office application L<Ado::Control::Ado>.
 
-=head2 form
+=cut
 
-The form action.
+# =head2 groups
 
-=head2 groups
+# Displays the groups of users this system has.
+# Uses the request parameters C<from> and C<to> to display a range of items
+# beginning at C<from> and ending at C<to>.
 
-Displays the groups of users this system has.
-Uses the request parameters C<from> and C<to> to display a range of items
-beginning at C<from> and ending at C<to>.
-
+=pod
 
 =head1 SPONSORS
 
@@ -89,7 +82,7 @@ L<Mojolicious::Guides::Growing/Controller_class>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2013-2014 Красимир Беров (Krasimir Berov).
+Copyright 2013-2015 Красимир Беров (Krasimir Berov).
 
 This program is free software, you can redistribute it and/or
 modify it under the terms of the 

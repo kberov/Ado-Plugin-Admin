@@ -8,15 +8,16 @@ has 'title';
 has 'url';
 
 sub items {
-  my $self = shift;
-  return $self->{items} = c(map { Ado::UI::Menu->new($_) } @_) if @_;
-  return $self->{items} //= c();
+    my $self = shift;
+    return $self->{items} = c(map { Ado::UI::Menu->new($_) } @_) if @_;
+    return $self->{items} = c() unless $self->{items};
+    return $self->{items};
 }
 
 sub add_item {
-  my $self = shift;
-  push @{$self->{items}}, Ado::UI::Menu->new(@_);
-  return $self;
+    my $self = shift;
+    push @{$self->{items}}, Ado::UI::Menu->new(@_);
+    return $self;
 }
 
 

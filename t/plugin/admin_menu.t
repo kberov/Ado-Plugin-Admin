@@ -17,9 +17,9 @@ isa_ok($menu->items, 'Mojo::Collection');
 isa_ok($menu->items, 'Mojo::Collection');
 
 my $items = $menu->items(
-  {icon => 'dashboard', title => 'Dashboard'},
-  {icon => 'content',   title => 'Content'},
-  {icon => 'settings',  title => 'Settings'}
+    {icon => 'dashboard', title => 'Dashboard'},
+    {icon => 'content',   title => 'Content'},
+    {icon => 'settings',  title => 'Settings'}
 );
 isa_ok($menu->add_item(icon => 'bla', title => 'Something'), $class);
 ok(my $last_item = $items->last, 'defined $last_item');
@@ -31,9 +31,15 @@ is($last_item->url,    undef,       'right url');
 isa_ok($last_item->items, 'Mojo::Collection');
 
 my $items1 = $last_item->items(
-  {icon => 'block layout', title => 'Templates', url => '/ado-templates'});
-isa_ok($last_item->add_item(icon => 'users', title => 'Users', url => '/ado-users'),
-  $class);
+    {icon => 'block layout', title => 'Templates', url => '/ado-templates'});
+isa_ok(
+    $last_item->add_item(
+        icon  => 'users',
+        title => 'Users',
+        url   => '/ado-users'
+    ),
+    $class
+);
 
 
 done_testing();
