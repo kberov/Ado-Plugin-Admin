@@ -1,0 +1,24 @@
+language: perl
+perl:
+  - "5.20"
+  - "5.18"
+# Whitelist branches for CI, ignore all other branches
+branches:
+  only:
+    - master
+env:
+  global:
+    - "HARNESS_OPTIONS=j3"
+    - "cpanm -n --installdeps ."
+  matrix:
+    - TEST_AUTHOR=1
+    - TEST_AUTHOR=0
+matrix:
+  allow_failures:
+    - TEST_AUTHOR=1
+  fast_finish: true
+notifications:
+  email: false
+#before_install:
+#  - sudo apt-get update -qq
+#  - sudo apt-get install -y ispell iamerican-large
