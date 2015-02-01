@@ -1,0 +1,44 @@
+---
+abstract: 'system (site) administration user interface'
+author:
+  - 'Krasimir Berov <berov@cpan.org>'
+build_requires:
+  Test::More: '0'
+configure_requires:
+  Ado: '0.78'
+  Module::Build: '0.42'
+dynamic_config: 1
+generated_by: 'Module::Build version 0.421, CPAN::Meta::Converter version 2.142060'
+keywords:
+  - Ado::Plugin::Admin
+  - Mojolicious
+  - realtime
+  - web
+  - ERP
+  - REST
+  - CMS
+  - enterprise
+license: lgpl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: '1.4'
+name: Ado-Plugin-Admin
+no_index:
+  namespace:
+    - Ado::Model
+provides:
+  Ado::Control::Ado::Default:
+    file: lib/Ado/Control/Ado/Default.pm
+  Ado::Control::Ado::Users:
+    file: lib/Ado/Control/Ado/Users.pm
+  Ado::Plugin::Admin:
+    file: lib/Ado/Plugin/Admin.pm
+    version: '0.03'
+  Ado::UI::Menu:
+    file: lib/Ado/UI/Menu.pm
+requires:
+  Ado: '0.76'
+resources:
+  bugtracker: https://github.com/kberov/Ado-Plugin-Admin/issues
+  repository: https://github.com/kberov/Ado-Plugin-Admin
+version: '0.03'

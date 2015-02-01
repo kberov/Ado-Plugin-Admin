@@ -12,6 +12,7 @@ META.yml
 README
 t/.perlcriticrc
 .perltidyrc
+.travis.yml
 t/manifest.t
 t/perl-critic.t
 t/plugin/admin-00.t

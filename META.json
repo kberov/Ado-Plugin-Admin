@@ -1,0 +1,74 @@
+{
+   "abstract" : "system (site) administration user interface",
+   "author" : [
+      "Krasimir Berov <berov@cpan.org>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "Module::Build version 0.421",
+   "keywords" : [
+      "Ado::Plugin::Admin",
+      "Mojolicious",
+      "realtime",
+      "web",
+      "ERP",
+      "REST",
+      "CMS",
+      "enterprise"
+   ],
+   "license" : [
+      "lgpl_3_0"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Ado-Plugin-Admin",
+   "no_index" : {
+      "namespace" : [
+         "Ado::Model"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "Test::More" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "Ado" : "0.78",
+            "Module::Build" : "0.42"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Ado" : "0.76"
+         }
+      }
+   },
+   "provides" : {
+      "Ado::Control::Ado::Default" : {
+         "file" : "lib/Ado/Control/Ado/Default.pm"
+      },
+      "Ado::Control::Ado::Users" : {
+         "file" : "lib/Ado/Control/Ado/Users.pm"
+      },
+      "Ado::Plugin::Admin" : {
+         "file" : "lib/Ado/Plugin/Admin.pm",
+         "version" : "0.03"
+      },
+      "Ado::UI::Menu" : {
+         "file" : "lib/Ado/UI/Menu.pm"
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/kberov/Ado-Plugin-Admin/issues"
+      },
+      "repository" : {
+         "url" : "https://github.com/kberov/Ado-Plugin-Admin"
+      }
+   },
+   "version" : "0.03"
+}
