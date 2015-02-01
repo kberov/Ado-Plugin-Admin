@@ -1,5 +1,8 @@
 Revision history for Ado-Plugin-Admin
 
+0.03 2015-02-01
+  - Depending explicitly on Ado 0.78.
+
 0.02 2015-02-01
   - Improved documentation and test coverage.
   - Moved Ado::Control::Ado::Users and Ado::Control::Ado::Default
