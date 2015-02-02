@@ -3,6 +3,9 @@ use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
 
+#Let Ado find its home and configuration.
+use Ado;
+
 my $t     = Test::Mojo->new('Ado');
 my $class = 'Ado::UI::Menu';
 use_ok($class);

@@ -2,6 +2,8 @@ use Mojo::Base -strict;
 use Test::More;
 use Test::Mojo;
 
+#Let Ado find its home and configuration.
+use Ado;
 
 my $class = 'Ado::Plugin::Admin';
 use_ok($class);
