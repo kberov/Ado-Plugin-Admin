@@ -33,12 +33,12 @@ provides:
     file: lib/Ado/Control/Ado/Users.pm
   Ado::Plugin::Admin:
     file: lib/Ado/Plugin/Admin.pm
-    version: '0.04'
+    version: '0.05'
   Ado::UI::Menu:
     file: lib/Ado/UI/Menu.pm
 requires:
-  Ado: '0.76'
+  Ado: '0.78'
 resources:
   bugtracker: https://github.com/kberov/Ado-Plugin-Admin/issues
   repository: https://github.com/kberov/Ado-Plugin-Admin
-version: '0.04'
+version: '0.05'
