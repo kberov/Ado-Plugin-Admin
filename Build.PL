@@ -11,7 +11,7 @@ my $builder = Ado::BuildPlugin->new(
   dist_author          => q{Krasimir Berov <berov@cpan.org>},
   configure_requires   => {'Module::Build' => '0.42', 'Ado' => '0.78'},
   build_requires       => {'Test::More' => 0,},
-  requires             => {Ado => '0.76',},
+  requires             => {Ado => '0.78',},
   recursive_test_files => 1,
   meta_merge           => {
     resources => {

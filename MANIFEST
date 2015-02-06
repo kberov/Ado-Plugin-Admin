@@ -1,3 +1,5 @@
+.perltidyrc
+.travis.yml
 Build.PL
 Changes
 etc/plugins/admin.conf
@@ -11,11 +13,10 @@ META.json
 META.yml
 README
 t/.perlcriticrc
-.perltidyrc
-.travis.yml
 t/manifest.t
 t/perl-critic.t
 t/plugin/admin-00.t
 t/plugin/admin_menu.t
+t/plugin/ado.conf
 t/pod-coverage.t
 t/pod.t
