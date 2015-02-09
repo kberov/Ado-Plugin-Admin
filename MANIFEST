@@ -11,6 +11,7 @@ LICENSE
 MANIFEST			This list of files
 META.json
 META.yml
+public/css/ado/admin.css
 README
 t/.perlcriticrc
 t/manifest.t
@@ -20,3 +21,7 @@ t/plugin/admin_menu.t
 t/plugin/ado.conf
 t/pod-coverage.t
 t/pod.t
+templates/ado/default/index.html.ep
+templates/ado/partials/head.html.ep
+templates/ado/partials/topbar.html.ep
+templates/layouts/ado.html.ep

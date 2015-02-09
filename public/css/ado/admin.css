@@ -1,0 +1,8 @@
+/* public/css/ado/admin.css */
+@charset "UTF-8";
+
+.footer,
+.main.container {
+  max-width: 99%;
+  margin-top: 2.5em;
+}

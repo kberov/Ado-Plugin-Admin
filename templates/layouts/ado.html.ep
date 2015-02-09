@@ -1,0 +1,16 @@
+%# templates/layouts/ado.html.ep
+<!DOCTYPE html>
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xml:lang="<%= $language %>"
+  lang="<%= $language %>">
+  <head><%= include 'ado/partials/head'; %></head>
+  <body><%= include 'ado/partials/topbar' %><%= content %></body>
+  <!-- Produced by
+% if(stash->{controller}){
+%=  'Controller: ' .stash->{controller}.'; Action: '.stash->{action};
+% }else{ 
+%=  (stash->{'mojo.captures'}{template}?'Template:'.stash->{'mojo.captures'}{template}:'');
+% }
+  -->
+</html>

@@ -1,0 +1,22 @@
+%# templates/ado/partials/head.html.ep
+%# standart generic header for all pages
+% state $generator = $c->generator;
+% state $description = $c->description;
+% state $base_url = url_for('/')->base;
+    <meta charset="utf-8" />
+    <base href="<%= $base_url %>" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="<%= $generator %>" />
+    <meta name="description" content="<%= $description %>" />
+    <title><%= title %></title>
+    <link rel="icon" href="<%=$base_url%>/favicon.png" type="image/png" />
+    %= stylesheet begin
+@import url('/vendor/SemanticUI/components/reset.min.css');
+@import url('/vendor/SemanticUI/semantic.min.css');
+@import url('css/ado.css');
+@import url('css/ado/admin.css');
+    %=end
+    %= javascript "/mojo/jquery/jquery.js"
+    %= javascript "/vendor/SemanticUI/semantic.min.js"
+    
