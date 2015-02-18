@@ -5,20 +5,23 @@ use Test::Mojo;
 use File::Spec::Functions qw(splitdir catdir catfile);
 use File::Basename;
 use Cwd qw(abs_path);
+use File::Basename;
 
+
+#use our own ado.conf
+$ENV{MOJO_CONFIG} = abs_path catfile(dirname(__FILE__), 'ado.conf');
+unlink dirname(__FILE__) .'/ado.sqlite';
+
+subtest load_plugin_with_own_ado_config_and_database => sub {
 my $class = 'Ado::Plugin::Admin';
-use_ok($class);
-isa_ok($class, 'Ado::Plugin');
-can_ok($class, 'register');
 
-subtest end_to_end => sub {
-
-    #use our own ado.conf
-    local $ENV{MOJO_CONFIG} = abs_path catfile(dirname(__FILE__), 'ado.conf');
     my $t   = Test::Mojo->new('Ado');
     my $app = $t->app;
-
-    isa_ok($app->plugin('admin'), $class);
+    my $dbh = $app->dbix->dbh;
+    my $admin = $app->plugin('admin');
+    isa_ok($admin, $class);
+    ok $admin->do_sql_file($dbh, catfile($app->home,'etc','ado-sqlite-schema.sql'));
+    ok $admin->do_sql_file($dbh, catfile($app->home,'etc','ado-sqlite-data.sql'));
     isa_ok($app->admin_menu => 'Ado::UI::Menu');
 
 #first we need to login!!!
