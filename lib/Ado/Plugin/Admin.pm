@@ -1,7 +1,7 @@
 package Ado::Plugin::Admin;
 use Mojo::Base 'Ado::Plugin';
 use Ado::UI::Menu;
-use Mojo::Util qw(encode monkey_patch);
+use Mojo::Util qw(monkey_patch);
 our $VERSION = '0.05';
 
 sub register {

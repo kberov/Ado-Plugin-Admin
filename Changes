@@ -1,8 +1,10 @@
 Revision history for Ado-Plugin-Admin
 
-0.05 2015-02-06
+0.05 2015-02-17
+
   - Use our own Ado configuration file for testing.
     http://www.cpantesters.org/cpan/report/09e78bd2-ab6f-11e4-a5b3-6a9cdfbfc7aa
+  - Moved Ado::Control::Ado to Ado-Plugin-Admin where it logically belongs.
 
 0.04 2015-02-04
   - Let Ado find its home during tests of plugins too.
