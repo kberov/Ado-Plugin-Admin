@@ -10,18 +10,25 @@ use File::Basename;
 
 #use our own ado.conf
 $ENV{MOJO_CONFIG} = abs_path catfile(dirname(__FILE__), 'ado.conf');
-unlink dirname(__FILE__) .'/ado.sqlite';
 
 subtest load_plugin_with_own_ado_config_and_database => sub {
-my $class = 'Ado::Plugin::Admin';
+    my $class = 'Ado::Plugin::Admin';
 
-    my $t   = Test::Mojo->new('Ado');
-    my $app = $t->app;
-    my $dbh = $app->dbix->dbh;
+    my $t     = Test::Mojo->new('Ado');
+    my $app   = $t->app;
+    my $dbh   = $app->dbix->dbh;
     my $admin = $app->plugin('admin');
     isa_ok($admin, $class);
-    ok $admin->do_sql_file($dbh, catfile($app->home,'etc','ado-sqlite-schema.sql'));
-    ok $admin->do_sql_file($dbh, catfile($app->home,'etc','ado-sqlite-data.sql'));
+    ok( $admin->do_sql_file(
+            $dbh, catfile($app->home, 'etc', 'ado-sqlite-schema.sql')
+        ),
+        'do_sql_file ado-sqlite-schema.sql'
+    );
+    ok( $admin->do_sql_file(
+            $dbh, catfile($app->home, 'etc', 'ado-sqlite-data.sql')
+        ),
+        'do_sql_file ado-sqlite-data.sql'
+    );
     isa_ok($app->admin_menu => 'Ado::UI::Menu');
 
 #first we need to login!!!
