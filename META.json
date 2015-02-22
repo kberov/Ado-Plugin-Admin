@@ -36,17 +36,20 @@
       },
       "configure" : {
          "requires" : {
-            "Ado" : "0.78",
+            "Ado" : "0.80",
             "Module::Build" : "0.42"
          }
       },
       "runtime" : {
          "requires" : {
-            "Ado" : "0.78"
+            "Ado" : "0.80"
          }
       }
    },
    "provides" : {
+      "Ado::Control::Ado" : {
+         "file" : "lib/Ado/Control/Ado.pm"
+      },
       "Ado::Control::Ado::Default" : {
          "file" : "lib/Ado/Control/Ado/Default.pm"
       },

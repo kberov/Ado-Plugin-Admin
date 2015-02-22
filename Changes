@@ -1,10 +1,12 @@
 Revision history for Ado-Plugin-Admin
 
-0.05 2015-02-20
+0.05 2015-02-22
 
-  - Use plugin's ado.conf and database for testing.
+  - Use plugin's own ado.conf and database for testing.
     http://www.cpantesters.org/cpan/report/09e78bd2-ab6f-11e4-a5b3-6a9cdfbfc7aa
     Solved problem with file access during tests. Thanks Slaven Rezić (SREZIC).
+  - Upgraded to Ado 0.80 where the functionality for the above case is
+    implemented.
   - Moved Ado::Control::Ado to Ado-Plugin-Admin where it logically belongs.
 
 0.04 2015-02-04

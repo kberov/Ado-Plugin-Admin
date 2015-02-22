@@ -16,19 +16,14 @@ subtest load_plugin_with_own_ado_config_and_database => sub {
 
     my $t     = Test::Mojo->new('Ado');
     my $app   = $t->app;
+    my $home  = $app->home;
     my $dbh   = $app->dbix->dbh;
     my $admin = $app->plugin('admin');
     isa_ok($admin, $class);
-    ok( $admin->do_sql_file(
-            $dbh, catfile($app->home, 'etc', 'ado-sqlite-schema.sql')
-        ),
-        'do_sql_file ado-sqlite-schema.sql'
-    );
-    ok( $admin->do_sql_file(
-            $dbh, catfile($app->home, 'etc', 'ado-sqlite-data.sql')
-        ),
-        'do_sql_file ado-sqlite-data.sql'
-    );
+    ok($app->do_sql_file($home->rel_file('etc/ado-sqlite-schema.sql')),
+        'do_sql_file ado-sqlite-schema.sql');
+    ok($app->do_sql_file($home->rel_file('etc/ado-sqlite-data.sql')),
+        'do_sql_file ado-sqlite-data.sql');
     isa_ok($app->admin_menu => 'Ado::UI::Menu');
 
 #first we need to login!!!

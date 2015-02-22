@@ -9,9 +9,9 @@ my $builder = Ado::BuildPlugin->new(
   dist_version_from    => 'lib/Ado/Plugin/Admin.pm',
   create_readme        => 1,
   dist_author          => q{Krasimir Berov <berov@cpan.org>},
-  configure_requires   => {'Module::Build' => '0.42', 'Ado' => '0.78'},
-  build_requires       => {'Test::More' => 0,},
-  requires             => {Ado => '0.78',},
+  configure_requires   => {'Ado' => '0.80','Module::Build' => 0.42},
+  build_requires       => {'Test::More' => 0},
+  requires             => {Ado => '0.80'},
   recursive_test_files => 1,
   meta_merge           => {
     resources => {

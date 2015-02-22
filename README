@@ -41,6 +41,15 @@ METHODS
 
     Initializes and registers plugin in Ado application.
 
+HELPERS
+    Ado::Plugin::Admin provides the following helpers
+
+  admin_menu
+    TODO: Renders the main menu in the administration screen in html or json
+    for the current user.
+
+      <%= admin_menu %>
+
 SEE ALSO
     Ado::UI::Menu, Ado::Control::Ado::Default, Ado::Control::Ado::Users,
     Ado::Plugin, Mojolicious::Guides::Growing, Ado::Manual, Mojolicious,

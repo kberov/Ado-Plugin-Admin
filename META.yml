@@ -5,7 +5,7 @@ author:
 build_requires:
   Test::More: '0'
 configure_requires:
-  Ado: '0.78'
+  Ado: '0.80'
   Module::Build: '0.42'
 dynamic_config: 1
 generated_by: 'Module::Build version 0.421, CPAN::Meta::Converter version 2.142060'
@@ -27,6 +27,8 @@ no_index:
   namespace:
     - Ado::Model
 provides:
+  Ado::Control::Ado:
+    file: lib/Ado/Control/Ado.pm
   Ado::Control::Ado::Default:
     file: lib/Ado/Control/Ado/Default.pm
   Ado::Control::Ado::Users:
@@ -37,7 +39,7 @@ provides:
   Ado::UI::Menu:
     file: lib/Ado/UI/Menu.pm
 requires:
-  Ado: '0.78'
+  Ado: '0.80'
 resources:
   bugtracker: https://github.com/kberov/Ado-Plugin-Admin/issues
   repository: https://github.com/kberov/Ado-Plugin-Admin

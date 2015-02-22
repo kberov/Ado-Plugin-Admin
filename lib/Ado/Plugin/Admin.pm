@@ -87,6 +87,17 @@ L<Ado::Plugin> and implements the following new ones.
 
 Initializes and registers plugin in L<Ado> application.
 
+=head1 HELPERS
+
+L<Ado::Plugin::Admin> provides the following helpers
+
+=head2 admin_menu
+
+TODO: Renders the main menu in the administration screen in html or json for the current user.
+
+  <%= admin_menu %>
+
+
 =head1 SEE ALSO
 
 L<Ado::UI::Menu>, L<Ado::Control::Ado::Default>, L<Ado::Control::Ado::Users>,
