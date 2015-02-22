@@ -1,7 +1,10 @@
 Revision history for Ado-Plugin-Admin
 
-0.06 2015-02-22
+0.07 2015-02-23
+  - Trying to fix failing tests by setting 'PRAGMA synchronous = ON'.
+    http://www.cpantesters.org/cpan/report/1b8448b4-bae5-11e4-be01-88698971dd2f
 
+0.06 2015-02-22
   - Use plugin's own ado.conf and database for testing.
     http://www.cpantesters.org/cpan/report/09e78bd2-ab6f-11e4-a5b3-6a9cdfbfc7aa
     Solved problem with file access during tests. Thanks Slaven Rezić (SREZIC).
