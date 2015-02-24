@@ -5,25 +5,22 @@ use Test::Mojo;
 use File::Spec::Functions qw(splitdir catdir catfile);
 use File::Basename;
 use Cwd qw(abs_path);
-use File::Basename;
 
 
 #use our own ado.conf
-$ENV{MOJO_CONFIG} = abs_path catfile(dirname(__FILE__), 'ado.conf');
+$ENV{MOJO_HOME} = abs_path dirname(__FILE__);
+$ENV{MOJO_CONFIG} = catfile($ENV{MOJO_HOME}, 'ado.conf');
 
-subtest load_plugin_with_own_ado_config_and_database => sub {
-    my $class = 'Ado::Plugin::Admin';
+my $class = 'Ado::Plugin::Admin';
+my $t     = Test::Mojo->new('Ado');
+my $app   = $t->app;
+my $home  = $app->home;
+my $dbh   = $app->dbix->dbh;
+my $admin = $app->plugin('admin');
 
-    my $t     = Test::Mojo->new('Ado');
-    my $app   = $t->app;
-    my $home  = $app->home;
-    my $dbh   = $app->dbix->dbh;
-    my $admin = $app->plugin('admin');
-    isa_ok($admin, $class);
-    ok($app->do_sql_file($home->rel_file('etc/ado-sqlite-schema.sql')),
-        'do_sql_file ado-sqlite-schema.sql');
-    ok($app->do_sql_file($home->rel_file('etc/ado-sqlite-data.sql')),
-        'do_sql_file ado-sqlite-data.sql');
+isa_ok($admin, $class);
+
+subtest run_plugin_with_own_ado_config_and_database => sub {
     isa_ok($app->admin_menu => 'Ado::UI::Menu');
 
 #first we need to login!!!
@@ -82,4 +79,5 @@ subtest load_plugin_with_own_ado_config_and_database => sub {
       ->status_is(200)->content_like(qr/not implemented/);
 
 };    #end end_to_end
+
 done_testing();

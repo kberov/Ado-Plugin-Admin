@@ -1,5 +1,13 @@
 Revision history for Ado-Plugin-Admin
 
+0.09 2015-02-25
+  - Use existing database file to avoid test falures.
+
+0.08 2015-02-23
+  - Trying to fix failing tests by putting the database file
+    in the t/plugin/ directory.
+    http://www.cpantesters.org/cpan/report/04f49de2-baea-11e4-a6d1-bc568971dd2f
+
 0.07 2015-02-23
   - Trying to fix failing tests by setting 'PRAGMA synchronous = ON'.
     http://www.cpantesters.org/cpan/report/1b8448b4-bae5-11e4-be01-88698971dd2f

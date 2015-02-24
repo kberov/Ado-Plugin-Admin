@@ -2,7 +2,7 @@ package Ado::Plugin::Admin;
 use Mojo::Base 'Ado::Plugin';
 use Ado::UI::Menu;
 use Mojo::Util qw(monkey_patch);
-our $VERSION = '0.07';
+our $VERSION = '0.09';
 
 sub register {
     my ($self, $app, $config) = shift->initialise(@_);
