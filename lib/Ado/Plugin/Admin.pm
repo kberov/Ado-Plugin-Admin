@@ -2,7 +2,7 @@ package Ado::Plugin::Admin;
 use Mojo::Base 'Ado::Plugin';
 use Ado::UI::Menu;
 use Mojo::Util qw(monkey_patch);
-our $VERSION = '0.09';
+our $VERSION = '0.11';
 
 sub register {
     my ($self, $app, $config) = shift->initialise(@_);
@@ -16,23 +16,21 @@ sub _init_admin_menu {
     my $menu =
       Ado::UI::Menu->new(header => 1, icon => 'ado', title => 'Plugins');
     $menu->items(
-        {title => 'Dashboard', url   => '/ado', icon => 'dashboard'},
-        {icon  => 'content',   title => 'Content'},
-        {icon  => 'setting',   title => 'System'}
+        {title => 'Dashboard', url  => '/ado', icon => 'dashboard'},
+        {title => 'Content',   icon => 'content'},
+        {title => 'System',    icon => 'setting'}
       )->first(sub { $_[0]->title eq 'System' })->items(
-        {icon => 'settings', title => 'Settings', url => '/ado-settings'},
-        {icon => 'users',    title => 'Users',    url => '/ado-users'},
+        {title => 'Settings', icon => 'settings', url => '/ado-settings'},
+        {title => 'Users',    icon => 'users',    url => '/ado-users'},
       );
     $menu->items->first(sub { $_[0]->title eq 'Content' })->items(
-        {icon => 'browser', title => 'Pages', url => '/ado-pages'},
-        {icon => 'content', title => 'Blog',  url => '/ado-blog'},
+        {title => 'Pages', icon => 'browser', url => '/ado-pages'},
+        {title => 'Blog',  icon => 'content', url => '/ado-blog'},
     );
     monkey_patch ref($self->app), admin_menu => sub {$menu};
     return;
 }
 1;
-
-__END__
 
 =encoding utf8
 

@@ -11,6 +11,10 @@ use Cwd qw(abs_path);
 $ENV{MOJO_HOME} = abs_path dirname(__FILE__);
 $ENV{MOJO_CONFIG} = catfile($ENV{MOJO_HOME}, 'ado.conf');
 
+# Make sure the database file is writable!
+chmod(oct('0600'), catfile($ENV{MOJO_HOME}, 'ado_admin.sqlite'))
+  or plan skip_all => 'ado_admin.sqlite cannot be made writable!';
+
 my $class = 'Ado::Plugin::Admin';
 my $t     = Test::Mojo->new('Ado');
 my $app   = $t->app;

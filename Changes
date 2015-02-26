@@ -1,5 +1,12 @@
 Revision history for Ado-Plugin-Admin
 
+0.11 2015-02-26
+  - Make sure the database file is writable during tests!
+
+0.10 2015-02-25
+  - It would be best if the database file was bundled with
+    the distribution ;).
+
 0.09 2015-02-25
   - Use existing database file to avoid test falures.
 

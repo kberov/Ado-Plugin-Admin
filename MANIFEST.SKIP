@@ -82,3 +82,8 @@
 \b_darcs\b
 \B\.cvsignore$
 
+# Avoid plugin specific SQLite files generated during testing
+ado_\w+\d+\.sqlite
+ado_\w+\.sqlite-journal
+ado_\w+\.sqlite-shm
+ado_\w+\.sqlite-wal
