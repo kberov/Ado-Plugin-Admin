@@ -95,6 +95,23 @@ TODO: Renders the main menu in the administration screen in html or json for the
 
   <%= admin_menu %>
 
+=head1 CONTINUOUS INTEGRATION
+
+We would like to know that our software is always in good health.
+We count on friendly developers and organizations to install and test it continuously.
+
+L<CPAN Testers Reports for Ado::PLugin::Admin|http://www.cpantesters.org/distro/A/Ado-Plugin-Admin.html>
+
+L<Travis-CI|https://travis-ci.org/kberov/Ado> 
+
+
+=begin html
+
+ <a href="https://travis-ci.org/kberov/Ado-Plugin-Admin"><img 
+  src="https://travis-ci.org/kberov/Ado-Plugin-Admin.svg?branch=master"
+    ></a><br /><br />
+
+end html
 
 =head1 SEE ALSO
 
