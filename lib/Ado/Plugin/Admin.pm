@@ -102,7 +102,7 @@ We count on friendly developers and organizations to install and test it continu
 
 L<CPAN Testers Reports for Ado::PLugin::Admin|http://www.cpantesters.org/distro/A/Ado-Plugin-Admin.html>
 
-L<Travis-CI|https://travis-ci.org/kberov/Ado> 
+L<Travis-CI|https://travis-ci.org/kberov/Ado-Plugin-Admin> 
 
 
 =begin html
