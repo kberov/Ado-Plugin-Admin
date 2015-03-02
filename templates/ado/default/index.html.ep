@@ -1,12 +1,9 @@
 %# templates/ado/index.html.ep
 % layout 'ado';
 
-<main class="ui main container">
-  <div class="ui left attached demo menu">
-    <a class="item"><i class="sidebar icon"></i> Menu</a>
-  </div>
-  <div class="ui bottom attached segment">
-    <aside class="ui inverted labeled icon left inline vertical sidebar menu">
+<main class="ui top attached main container">
+<div class="ui top attached segment pushable">
+    <div class="ui visible inverted left vertical sidebar menu">
       <a class="item">
         <i class="home icon"></i>
         Home
@@ -23,23 +20,18 @@
         <i class="calendar icon"></i>
         History
       </a>
-    </aside>
-    <section class="pusher">
+      <%= admin_menu %>
+    </div>
+    <div class="pusher">
       <div class="ui basic segment">
         <h3 class="ui header">Application Content</h3>
         <p></p>
         <p></p>
         <p></p>
         <p></p>
-     </div>
-    </section>
+      </div>
+    </div>
   </div>
 </main>
 
 
-<script>
-  $('main aside.ui.sidebar')
-  .sidebar({
-    context: $('main.ui')
-  }).sidebar('attach events', '.main .menu .item');;
-</script>

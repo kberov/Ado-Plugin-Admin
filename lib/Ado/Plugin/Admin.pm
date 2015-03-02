@@ -2,11 +2,12 @@ package Ado::Plugin::Admin;
 use Mojo::Base 'Ado::Plugin';
 use Ado::UI::Menu;
 use Mojo::Util qw(monkey_patch);
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 sub register {
     my ($self, $app, $config) = shift->initialise(@_);
     $self->_init_admin_menu();
+    $app->helper(admin_menu => \&_render_admin_menu);
 
     return $self;
 }
@@ -29,6 +30,11 @@ sub _init_admin_menu {
     );
     monkey_patch ref($self->app), admin_menu => sub {$menu};
     return;
+}
+
+sub _render_admin_menu {
+    my $c = shift;
+    warn $c;
 }
 1;
 

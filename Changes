@@ -1,5 +1,8 @@
 Revision history for Ado-Plugin-Admin
 
+0.12 2015-03-03
+  Implemented main sidebar - alpha.
+
 0.11 2015-02-26
   - Make sure the database file is writable during tests!
 

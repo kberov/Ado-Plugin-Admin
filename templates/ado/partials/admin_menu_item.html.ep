@@ -1,0 +1,4 @@
+%# admin_menu_item.html.ep
+<a class="item" href="<%= url_for $item->url %>">
+  <i class="<%= $item->icon %>"></i> <%= $item->title %>
+</a>

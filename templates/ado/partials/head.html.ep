@@ -12,7 +12,6 @@
     <title><%= title %></title>
     <link rel="icon" href="<%=$base_url%>/favicon.png" type="image/png" />
     %= stylesheet begin
-@import url('/vendor/SemanticUI/components/reset.min.css');
 @import url('/vendor/SemanticUI/semantic.min.css');
 @import url('css/ado.css');
 @import url('css/ado/admin.css');

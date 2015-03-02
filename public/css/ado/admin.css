@@ -4,5 +4,8 @@
 .footer,
 .main.container {
   max-width: 99%;
-  margin-top: 2.5em;
+  padding-top: 3em;
+  height: 100vh;
+  overflow: auto;
+
 }
