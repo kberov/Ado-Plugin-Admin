@@ -1,6 +1,6 @@
 %# admin_menu.html.ep
 % state $match  = Mojolicious::Routes::Match->new(root => app->routes);
-<div id="admin_menu" class="ui visible inverted left vertical sidebar menu">
+<div id="admin_menu" class="ui visible inverted left vertical thin sidebar menu">
   <h1 class="header item">
     <%= $item->title %>
   </h1>

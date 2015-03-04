@@ -3,9 +3,26 @@
 
 .footer,
 .main.container {
-  max-width: 99%;
+  padding: 1ex;
+  margin: 0;
   padding-top: 3em;
   height: 100vh;
+  max-width: 100%;
   overflow: auto;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
 
+#admin_menu {
+  border-radius: 5px !important;
+}
+
+.main .top.attached.pushable > .pusher {
+  padding-left:1ex;
+  padding-right: 8.4em;/* otherwise the tab segment right border is not viible*/
+}
+
+.main .top.attached.pushable > .pusher .tab.segment {
+  z-index: inherit;
 }
