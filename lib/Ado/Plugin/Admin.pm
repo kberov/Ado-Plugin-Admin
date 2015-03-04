@@ -17,9 +17,9 @@ sub _init_admin_menu {
     my $menu =
       Ado::UI::Menu->new(header => 1, icon => 'ado', title => 'Plugins');
     $menu->items(
-        {title => 'Dashboard', url  => '/ado', icon => 'dashboard'},
-        {title => 'Content',   icon => 'content'},
-        {title => 'System',    icon => 'setting'}
+        {title => 'Dashboard', url => '/ado', header => 1, icon => 'dashboard'},
+        {title => 'Content', icon => 'content', header => 1,},
+        {title => 'System',  icon => 'setting', header => 1,}
       )->first(sub { $_[0]->title eq 'System' })->items(
         {title => 'Settings', icon => 'settings', url => '/ado-settings'},
         {title => 'Users',    icon => 'users',    url => '/ado-users'},
@@ -32,9 +32,20 @@ sub _init_admin_menu {
     return;
 }
 
+
+# Rendered once and cached in the user session.
 sub _render_admin_menu {
     my $c = shift;
-    warn $c;
+
+    # return prepared HTML
+    return $c->session('admin_menu') if $c->session('admin_menu');
+
+    my $menu = $c->render_to_string(
+        template => '/ado/partials/admin_menu',
+        item     => $c->app->admin_menu
+    );
+    $c->session('admin_menu' => $menu);    # session cache
+    return $menu;
 }
 1;
 

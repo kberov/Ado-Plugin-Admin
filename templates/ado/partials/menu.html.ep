@@ -1,9 +1,13 @@
-%# admin_menu.html.ep
+%# menu.html.ep
+% my $header = $item->header ? 'header ':'';
 % state $match  = Mojolicious::Routes::Match->new(root => app->routes);
-<div id="admin_menu" class="ui visible inverted left vertical sidebar menu">
-  <h1 class="header item">
-    <%= $item->title %>
-  </h1>
+  <div class="<%= $header %>item">
+    % if($item->url){
+      % include 'ado/partials/menu_item',item => $item;
+    % } else {
+      <i class="<%= $item->icon %> icon"></i> <%= $item->title %>
+    % }
+    <div class="menu">
   % foreach my $it ($item->items->each) {
     %  next if ($it->url && !$match->find($c, {method => 'GET', path => $it->url}));
     %  if ($it->items->size) {
@@ -11,5 +15,6 @@
     %  } else {
       %= $c->render_to_string(template => 'ado/partials/menu_item',item => $it);
     %}
-  % } 
-</div><!-- end div id="admin_menu" -->
+  % }
+    </div>
+  </div>

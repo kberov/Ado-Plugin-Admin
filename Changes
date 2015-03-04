@@ -1,7 +1,10 @@
 Revision history for Ado-Plugin-Admin
 
-0.12 2015-03-03
-  Implemented main sidebar - alpha.
+0.12 2015-03-04
+  - Implemented main sidebar - alpha.
+  - 2015-03-03 Честит празник на всички българи!
+    Днес - трети март - е денят на независимостта
+    на третата българска държава.
 
 0.11 2015-02-26
   - Make sure the database file is writable during tests!
