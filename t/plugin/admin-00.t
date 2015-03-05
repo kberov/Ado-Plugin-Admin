@@ -56,12 +56,17 @@ subtest run_plugin_with_own_ado_config_and_database => sub {
     $t->get_ok('/ado')->status_is(200)
       ->content_like(qr/Controller: ado-default; Action: index/);
 
+
+};    #end run_plugin_with_own_ado_config_and_database
+subtest 'ado-users' => sub {
+
 #restapi
     $t->get_ok('/ado-users', {Accept => 'text/plain'})
       ->status_is(415, '415 - Unsupported Media Type for any other format');
     $t->get_ok('/ado-users.json')->status_is(200);
     $t->get_ok('/ado-users')->status_is(204)
       ->content_type_is(undef, 'no content type');
+    $t->get_ok('/ado-users', {Accept => 'application/json'})->status_is(200);
     $t->get_ok('/ado-users.json', form => {limit => 2, offset => 2})
       ->status_is(200)
       ->json_is('/data/0/login_name' => 'guest', 'right login_name')
@@ -81,7 +86,6 @@ subtest run_plugin_with_own_ado_config_and_database => sub {
       ->status_is(200)->content_like(qr/not implemented/);
     $t->delete_ok('/ado-users/disable/3', form => {login_name => 'foo'})
       ->status_is(200)->content_like(qr/not implemented/);
-
-};    #end end_to_end
+};    #end ado-users
 
 done_testing();
