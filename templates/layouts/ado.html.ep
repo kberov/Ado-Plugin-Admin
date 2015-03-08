@@ -5,7 +5,20 @@
   xml:lang="<%= $language %>"
   lang="<%= $language %>">
   <head><%= include 'ado/partials/head'; %></head>
-  <body><%= include 'ado/partials/topbar' %><%= content %></body>
+  <body><%= include 'ado/partials/topbar' %>
+  <main class="ui top attached main container">
+    <div class="ui top attached pushable">
+        <%== admin_menu %>
+        <div class="pusher">
+          <!-- start content -->
+          <%= content %>
+          <!-- end content -->
+        </div><!-- end div class="pusher" -->
+      </div><!-- div class="ui top attached segment pushable" -->
+    </main>
+
+
+  </body>
   <!-- Produced by
 % if(stash->{controller}){
 %=  'Controller: ' .stash->{controller}.'; Action: '.stash->{action};
