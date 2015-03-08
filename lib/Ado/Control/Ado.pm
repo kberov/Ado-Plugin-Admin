@@ -1,6 +1,137 @@
 package Ado::Control::Ado;
 use Mojo::Base 'Ado::Control';
+use Mojo::Cache;
+has _cache => sub { Mojo::Cache->new };
 
+# Meta data for models and CRUD used by all back-end controllers.
+# Clients should request this before manipulating records.
+sub meta {
+    my $c     = shift;
+    my $class = ref($c);
+    state $cache = $c->_cache;
+    $c->debug(
+        "collecting metadata about $class..." . $cache->get($class . "_meta"));
+
+    #$c->require_formats('json') || return;
+    if (my $json = $cache->get($class . "_meta")) {
+        return $c->render(json => $json);
+    }
+    $c->debug("collecting metadata about $class...");
+    my ($model_class) = $class =~ /(\w+)$/;
+    my $M = 'Ado::Model::' . $model_class;
+    state $routes = $c->app->routes;
+    my ($m, $c_routes, $action);
+
+    #add
+    $m = Mojolicious::Routes::Match->new(root => $routes);
+    $action = 'add';
+    if ($c->can($action)
+        && $m->find(
+            $c => {
+                method => 'POST',
+                path   => '/ado-' . lc($model_class) . '/' . $action
+            }
+        )
+      )
+    {
+        $c_routes->{$action} = {
+            path_for => $m->path_for,
+            pattern  => $m->endpoint->pattern->unparsed,
+            method   => 'POST',
+            over     => $m->endpoint->over
+        };
+    }
+
+    #show
+    $m = Mojolicious::Routes::Match->new(root => $routes);
+    $action = 'show';
+    if ($c->can($action)
+        && $m->find(
+            $c => {
+                method => 'GET',
+                path   => '/ado-' . lc($model_class) . "/$action/123"
+            }
+        )
+      )
+    {
+        $c_routes->{$action} = {
+            path_for => $m->path_for,
+            pattern  => $m->endpoint->pattern->unparsed,
+            method   => 'GET',
+            over     => $m->endpoint->over
+        };
+    }
+
+    #update
+    $m = Mojolicious::Routes::Match->new(root => $routes);
+    $action = 'update';
+    if ($c->can($action)
+        && $m->find(
+            $c => {
+                method => 'PUT',
+                path   => '/ado-' . lc($model_class) . "/$action/123"
+            }
+        )
+      )
+    {
+        $c_routes->{action} = {
+            path_for => $m->path_for,
+            pattern  => $m->endpoint->pattern->unparsed,
+            method   => 'PUT',
+            over     => $m->endpoint->over
+        };
+    }
+
+    #disable
+    $m = Mojolicious::Routes::Match->new(root => $routes);
+    $action = 'disable';
+    if ($c->can($action)
+        && $m->find(
+            $c => {
+                method => 'DELETE',
+                path   => '/ado-' . lc($model_class) . "/$action/123"
+            }
+        )
+      )
+    {
+        $c_routes->{disable} = {
+            path_for => $m->path_for,
+            pattern  => $m->endpoint->pattern->unparsed,
+            method   => 'DELETE',
+            over     => $m->endpoint->over
+        };
+    }
+
+    #delete
+    $m = Mojolicious::Routes::Match->new(root => $routes);
+    $action = 'delete';
+    if ($c->can($action)
+        && $m->find(
+            $c => {
+                method => 'DELETE',
+                path   => '/ado-' . lc($model_class) . "/$action/123"
+            }
+        )
+      )
+    {
+        $c_routes->{delete} = {
+            path_for => $m->path_for,
+            pattern  => $m->endpoint->pattern->unparsed,
+            method   => 'DELETE',
+            over     => $m->endpoint->over
+        };
+    }
+
+    my $json = {
+        TABLE   => $M->TABLE,
+        COLUMNS => $M->COLUMNS,
+        ALIASES => $M->ALIASES,
+        CHECKS  => $M->CHECKS,
+        actions => $c_routes,
+    };
+    $cache->set($class . "_meta" => $json);
+    return $c->render(json => $json);
+}
 
 1;
 
@@ -25,16 +156,27 @@ Ado::Control::Ado is the base controller class for all back-office controllers.
 
 =head1 ATTRIBUTES
 
-Ado::Control::Ado inherits all the attributes from 
-<Ado::Control> and defines attributes shared among all back-office controllers.
+Ado::Control::Ado inherits all the attributes from
+<Ado::Control> and does not define new attributes to share among
+all back-office controllers.
 
 
 
 
-=head1 METHODS
+=head1 METHODS/ACTIONS
 
-Ado::Control::Ado inherits all methods from L<Ado::Control::Ado> and 
+Ado::Control::Ado inherits all methods from L<Ado::Control::Ado> and
 implements the following new ones.
+
+=head2 meta
+
+  http://localhost:3000/ado-users/meta.json
+
+Provides meta information for the resource behind this controller.
+Can be used by client application authors to retrieve information about what
+actions can be applied on a resource.
+
+
 
 
 =head1 SPONSORS
