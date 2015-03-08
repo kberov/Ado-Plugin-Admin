@@ -9,6 +9,10 @@ sub register {
     $self->_init_admin_menu();
     $app->helper(admin_menu => \&_render_admin_menu);
 
+    #may be used later
+    #$app->plugin("AssetPack");
+    #$app->asset('admin.css' => ('/plugins/admin/admin.css'));
+    #$app->asset('admin.js'  => ('/plugins/admin/admin.js'));
     return $self;
 }
 

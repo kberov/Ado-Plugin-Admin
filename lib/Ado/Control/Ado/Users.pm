@@ -1,11 +1,10 @@
 package Ado::Control::Ado::Users;
 use Mojo::Base 'Ado::Control::Ado';
 
-
 #available users on this system
 sub list {
     my $c = shift;
-    $c->require_formats('json') || return;
+    $c->require_formats('json', 'html') || return;
     my $args = Params::Check::check(
         {   limit => {
                 allow => sub { $_[0] =~ /^\d+$/ ? 1 : ($_[0] = 20); }
@@ -21,16 +20,17 @@ sub list {
 
     $c->res->headers->content_range(
         "users $$args{offset}-${\($$args{limit} + $$args{offset})}/*");
-    $c->debug("rendering json only ($$args{limit}, $$args{offset})");
+
+    my $list_for_json = $c->list_for_json([$$args{limit}, $$args{offset}],
+        [Ado::Model::Users->select_range($$args{limit}, $$args{offset})]);
 
     #content negotiation
     return $c->respond_to(
-        json => $c->list_for_json(
-            [$$args{limit}, $$args{offset}],
-            [Ado::Model::Users->select_range($$args{limit}, $$args{offset})]
-        )
+        json => $list_for_json,
+        html => {list_for_json => $list_for_json}
     );
 }
+
 
 sub add {
     return shift->render(text => 'not implemented...');
@@ -47,6 +47,7 @@ sub update {
 sub disable {
     return shift->render(text => 'not implemented...');
 }
+*delete = \&disable;
 
 
 1;

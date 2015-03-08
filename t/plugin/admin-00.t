@@ -64,7 +64,7 @@ subtest 'ado-users' => sub {
     $t->get_ok('/ado-users', {Accept => 'text/plain'})
       ->status_is(415, '415 - Unsupported Media Type for any other format');
     $t->get_ok('/ado-users.json')->status_is(200);
-    $t->get_ok('/ado-users')->status_is(204)
+    $t->get_ok('/ado-users')->status_is(200)
       ->content_type_is(undef, 'no content type');
     $t->get_ok('/ado-users', {Accept => 'application/json'})->status_is(200);
     $t->get_ok('/ado-users.json', form => {limit => 2, offset => 2})

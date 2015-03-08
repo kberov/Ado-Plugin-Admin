@@ -9,8 +9,7 @@ sub meta {
     my $c     = shift;
     my $class = ref($c);
     state $cache = $c->_cache;
-    $c->debug(
-        "collecting metadata about $class..." . $cache->get($class . "_meta"));
+    $c->debug("metadata about $class...");
 
     #$c->require_formats('json') || return;
     if (my $json = $cache->get($class . "_meta")) {
