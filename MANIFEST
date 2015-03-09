@@ -12,7 +12,8 @@ LICENSE
 MANIFEST			This list of files
 META.json
 META.yml
-public/css/ado/admin.css
+public/plugins/admin/admin.css
+public/plugins/admin/admin.js
 README
 t/.perlcriticrc
 t/manifest.t
@@ -29,4 +30,5 @@ templates/ado/partials/head.html.ep
 templates/ado/partials/menu.html.ep
 templates/ado/partials/menu_item.html.ep
 templates/ado/partials/topbar.html.ep
-templates/layouts/ado.html.ep
+templates/ado/users/list.html.ep
+templates/layouts/admin.html.ep

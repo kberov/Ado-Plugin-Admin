@@ -1,5 +1,5 @@
 %# templates/ado/index.html.ep
-% layout 'ado';
+% layout 'admin';
 
       <div id="tab_title" class="ui top attached tabular menu">
           <div class="active header item">
