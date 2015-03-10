@@ -1,0 +1,5 @@
+%# templates/layouts/admin_xhr.html.ep
+%# Layout for serving templates requested via XMLHttpRequest
+<template id="<%= current_route %>">
+<%= content %>
+</template>
