@@ -1,3 +1,29 @@
 %#templates/ado/users/list.html.ep
-
-
+      <div id="tab_title" class="ui top attached tabular menu">
+          <div class="active header item">
+%= title
+          </div>
+      </div>
+      <div id="tab_body" class="ui bottom attached active tab segment">
+<table class="ui sortable celled table">
+  <thead>
+    <tr>
+      <th><%= l('login_name') %></th>
+      <th><%= l('name') %></th>
+      <th><%= l('email') %></th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+      <td>John</td>
+      <td>No Action</td>
+      <td>None</td>
+    </tr>
+  </tbody>
+  <tfoot>
+    <tr><th>3 People</th>
+    <th>2 Approved</th>
+    <th></th>
+  </tr></tfoot>
+</table>
+      </div><!-- div id="tab_body" -->

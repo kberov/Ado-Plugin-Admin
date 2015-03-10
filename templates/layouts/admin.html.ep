@@ -9,7 +9,7 @@
   <main class="ui top attached main container">
     <div class="ui top attached pushable">
         <%== admin_menu %>
-        <div class="pusher">
+        <div class="pusher" id="main_content">
           <!-- start content -->
           <%= content %>
           <!-- end content -->
