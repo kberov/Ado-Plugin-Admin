@@ -12,7 +12,7 @@
 
   function render_response () {
     $.get(this.href, function(res) {
-      $('#main_content').html($(res).html());
+      $('#main_content').html(res);
       $('title').text($('#tab_title').text())
     });
     return false;

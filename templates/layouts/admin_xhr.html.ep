@@ -1,5 +1,6 @@
 %# templates/layouts/admin_xhr.html.ep
 %# Layout for serving templates requested via XMLHttpRequest
-<template id="<%= current_route %>">
+% my $r = current_route;
+<!-- start <%= $r %> -->
 <%= content %>
-</template>
+<!-- end <%= $r %> -->
