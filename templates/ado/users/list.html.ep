@@ -1,29 +1,65 @@
 %#templates/ado/users/list.html.ep
+% use Time::Piece ();
+% use List::Util 'first';
+% my $TP ='Time::Piece';
+
       <div id="tab_title" class="ui top attached tabular menu">
-          <div class="active header item">
-%= title
-          </div>
+          <div class="active header item"><%= title %></div>
       </div>
       <div id="tab_body" class="ui bottom attached active tab segment">
-<table class="ui sortable celled table">
-  <thead>
-    <tr>
-      <th><%= l('login_name') %></th>
-      <th><%= l('name') %></th>
-      <th><%= l('email') %></th>
-    </tr>
-  </thead>
-  <tbody>
-      <tr>
-      <td>John</td>
-      <td>No Action</td>
-      <td>None</td>
-    </tr>
-  </tbody>
-  <tfoot>
-    <tr><th>3 People</th>
-    <th>2 Approved</th>
-    <th></th>
-  </tr></tfoot>
-</table>
+<div class="ui one column grid">
+  <div class="four column row">
+      <div class="ui header column">
+        <%= l('login_name') %>
+      </div>    
+      <div class="ui header column">
+        <%= l('name') %>
+      </div>    
+      <div class="ui header column">
+        <%= l('email') %>
+      </div>    
+      <div class="ui header column">
+        <%= l('reg_date') %>
+      </div>    
+  </div>
+  <div class="ui divider"></div>
+  <div class="ui four column grid">
+  % my $users = $list_for_json->{json}{data};
+  % foreach my $u(@$users) {
+      <div class="row" id="u<%= $u->{id} %>" title="<%= $u->{description} %>">
+        <div class="column"><%= $u->{login_name} %></div>
+        <div class="column"><%= $u->{first_name} . ' ' . $u->{last_name} %></div>
+        <div class="column"><%= $u->{email} %></div>
+        <div class="column">
+          <%= $TP->strptime($u->{reg_date},'%s')->strftime('%Y-%m-%d %H:%M:%S') %>
+        </div>
+      </div>
+      <div class="ui divider"></div>
+  % }
+  </div>
+  <div class="right aligned two column row">
+  % my $next = first {$_&& $_->{rel} eq 'next'} @{$list_for_json->{json}{links}};
+  % my $prev = first {$_&& $_->{rel} eq 'prev'} @{$list_for_json->{json}{links}};
+    <div class="column">
+      <div class="ui pagination menu">
+        % if($prev){
+        <a class="icon item" href="<%= $prev->{href} %>">
+          <i class="left arrow icon"></i>
+        </a>
+        % }
+        % if($next){
+        <a class="icon item" href="<%= $next->{href} %>">
+          <i class="right arrow icon"></i>
+        </a>
+        % }
+      </div>
+    </div>
+    <div class="column">
+      <button class="ui button">
+        <i class="icon user"></i><i class="icon plus"></i>
+        <%= l('Add new') %>
+      </button>
+    </div>
+  </div>
+</div><!-- end grid -->
       </div><!-- div id="tab_body" -->

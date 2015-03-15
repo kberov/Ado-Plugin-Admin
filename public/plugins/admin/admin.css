@@ -5,8 +5,8 @@
 .main.container {
   padding: 1ex;
   margin: 0;
-  padding-top: 3em;
-  height: 100vh;
+  padding-top: 2.5em;
+  height: 97vh;
   max-width: 100%;
   overflow: auto;
   background: none;
@@ -25,4 +25,20 @@
 
 .main .top.attached.pushable > .pusher .tab.segment {
   z-index: inherit;
+}
+#tab_body .ui.grid,
+#tab_body .ui.grid > .row,
+#tab_body .ui.grid > .row > .column {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 1ex;
+  padding-right: 1ex;
+  margin: 0;
+}
+#tab_body .ui.divider {
+  margin: 0.5ex;
+}
+#tab_body .ui.four.column.grid {
+  height: 67vh;
+  overflow: auto;
 }
