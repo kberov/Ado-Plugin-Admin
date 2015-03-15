@@ -26,9 +26,9 @@
 .main .top.attached.pushable > .pusher .tab.segment {
   z-index: inherit;
 }
-#tab_body .ui.grid,
-#tab_body .ui.grid > .row,
-#tab_body .ui.grid > .row > .column {
+#tab_body #users_list.ui.grid,
+#tab_body #users_list.ui.grid > .row,
+#tab_body #users_list.ui.grid > .row > .column {
   padding-top: 0;
   padding-bottom: 0;
   padding-left: 1ex;
@@ -38,7 +38,7 @@
 #tab_body .ui.divider {
   margin: 0.5ex;
 }
-#tab_body .ui.four.column.grid {
-  height: 67vh;
+#tab_body #users_list.grid {
+  height: 65vh;
   overflow: auto;
 }

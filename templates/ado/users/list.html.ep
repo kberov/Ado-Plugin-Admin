@@ -2,51 +2,39 @@
 % use Time::Piece ();
 % use List::Util 'first';
 % my $TP ='Time::Piece';
+% my $js = $list_for_json->{json};
+% my ($users,$i) = ($js->{data},1);
+% my $self = $js->{links}[0];
+% my $next = first {$_&& $_->{rel} eq 'next'} @{$js->{links}};
+% my $prev = first {$_&& $_->{rel} eq 'prev'} @{$js->{links}};
 
       <div id="tab_title" class="ui top attached tabular menu">
           <div class="active header item"><%= title %></div>
       </div>
       <div id="tab_body" class="ui bottom attached active tab segment">
 <div class="ui one column grid">
-  <div class="four column row">
-      <div class="ui header column">
-        <%= l('login_name') %>
-      </div>    
-      <div class="ui header column">
-        <%= l('name') %>
-      </div>    
-      <div class="ui header column">
-        <%= l('email') %>
-      </div>    
-      <div class="ui header column">
-        <%= l('reg_date') %>
-      </div>    
-  </div>
-  <div class="ui divider"></div>
-  <div class="ui four column grid">
-  % my $users = $list_for_json->{json}{data};
-  % foreach my $u(@$users) {
-      <div class="row" id="u<%= $u->{id} %>" title="<%= $u->{description} %>">
-        <div class="column"><%= $u->{login_name} %></div>
-        <div class="column"><%= $u->{first_name} . ' ' . $u->{last_name} %></div>
-        <div class="column"><%= $u->{email} %></div>
-        <div class="column">
-          <%= $TP->strptime($u->{reg_date},'%s')->strftime('%Y-%m-%d %H:%M:%S') %>
-        </div>
-      </div>
-      <div class="ui divider"></div>
-  % }
-  </div>
-  <div class="right aligned two column row">
-  % my $next = first {$_&& $_->{rel} eq 'next'} @{$list_for_json->{json}{links}};
-  % my $prev = first {$_&& $_->{rel} eq 'prev'} @{$list_for_json->{json}{links}};
+  <div id="users_list_controls" class="right aligned two column row">
     <div class="column">
       <div class="ui pagination menu">
-        % if($prev){
+        % if($prev) {
         <a class="icon item" href="<%= $prev->{href} %>">
           <i class="left arrow icon"></i>
         </a>
         % }
+        <div class="ui dropdown item">
+        %= $js->{query}{limit}
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <a class="item" href="<%= url_with->query([limit=>20])%> ">
+            <%= l('[_1] rows per page',5) %></a>
+          <a class="item" href="<%= url_with->query([limit=>20])%> ">
+            <%= l('[_1] rows per page',20) %></a>
+          <a class="item" href="<%= url_with->query([limit=>50])%> ">
+            <%= l('[_1] rows per page',50) %></a>
+          <a class="item" href="<%= url_with->query([limit=>100])%> ">
+            <%= l('[_1] rows per page',100) %></a>
+        </div>
+      </div>
         % if($next){
         <a class="icon item" href="<%= $next->{href} %>">
           <i class="right arrow icon"></i>
@@ -57,9 +45,41 @@
     <div class="column">
       <button class="ui button">
         <i class="icon user"></i><i class="icon plus"></i>
-        <%= l('Add new') %>
+        <%= l('Add user') %>
       </button>
     </div>
+  </div><!-- end row -->
+  <div id="users_list_header" class="five column header black row">
+      <div class="ui header inverted two wide column">№/ID</div>
+      <div class="ui header inverted two wide column">
+        <%= l('login_name') %>
+      </div>
+      <div class="ui header inverted column">
+        <%= l('name') %>
+      </div>
+      <div class="ui header inverted column">
+        <%= l('email') %>
+      </div>
+      <div class="ui header inverted column">
+        <%= l('reg_date') %>
+      </div>
+  </div>
+  <div id="users_list" class="ui five column grid">
+  % foreach my $u(@$users) {
+      <div class="<%= $u->{disabled} ? 'disabled ':''%>row" 
+        id="u<%= $u->{id} %>" title="<%= $u->{description} %>">
+        <div class="two wide right aligned column">
+          <%= $i %> / <%= $u->{id} %></div>
+        <div class="two wide column"><%= $u->{login_name} %></div>
+        <div class="column"><%= $u->{first_name} . ' ' . $u->{last_name} %></div>
+        <div class="column"><%= $u->{email} %></div>
+        <div class="column">
+          <%= $TP->strptime($u->{reg_date},'%s')->strftime('%Y-%m-%d %H:%M:%S') %>
+        </div>
+      </div>
+      <div class="ui divider"></div>
+  % $i++; }
   </div>
 </div><!-- end grid -->
       </div><!-- div id="tab_body" -->
+<script src="plugins/admin/users.js"></script>
