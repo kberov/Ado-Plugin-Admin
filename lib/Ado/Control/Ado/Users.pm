@@ -48,8 +48,6 @@ sub update {
 sub disable {
     return shift->render(text => 'not implemented...');
 }
-*delete = \&disable;
-
 
 1;
 

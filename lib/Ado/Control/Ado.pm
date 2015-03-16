@@ -101,26 +101,6 @@ sub meta {
         };
     }
 
-    #delete
-    $m = Mojolicious::Routes::Match->new(root => $routes);
-    $action = 'delete';
-    if ($c->can($action)
-        && $m->find(
-            $c => {
-                method => 'DELETE',
-                path   => '/ado-' . lc($model_class) . "/$action/123"
-            }
-        )
-      )
-    {
-        $c_routes->{delete} = {
-            path_for => $m->path_for,
-            pattern  => $m->endpoint->pattern->unparsed,
-            method   => 'DELETE',
-            over     => $m->endpoint->over
-        };
-    }
-
     my $json = {
         TABLE   => $M->TABLE,
         COLUMNS => $M->COLUMNS,
