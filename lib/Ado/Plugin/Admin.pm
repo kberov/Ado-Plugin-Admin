@@ -9,6 +9,20 @@ sub register {
     $self->_init_admin_menu();
     $app->helper(admin_menu => \&_render_admin_menu);
 
+    #Layout when called via XMLHttpRequest
+    $app->hook(
+        around_action => sub {
+            my ($next, $c, $action, $last_in_stack) = @_;
+            if ($c->current_route =~ /^ado/ && $c->req->is_xhr) {
+                $c->layout('admin_xhr');
+            }
+            elsif ($c->current_route =~ /^ado/ && !$c->req->is_xhr) {
+                $c->layout('admin');
+            }
+            return $next->();
+        }
+    );
+
     #may be used later
     #$app->plugin("AssetPack");
     #$app->asset('admin.css' => ('/plugins/admin/admin.css'));

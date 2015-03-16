@@ -23,7 +23,6 @@ sub list {
 
     my $list_for_json = $c->list_for_json([$$args{limit}, $$args{offset}],
         [Ado::Model::Users->select_range($$args{limit}, $$args{offset})]);
-    ($c->req->is_xhr)? $c->layout('admin_xhr'):$c->layout('admin');
     $c->title($c->l('Users'));
 
     #content negotiation

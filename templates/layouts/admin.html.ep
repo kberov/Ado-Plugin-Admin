@@ -1,4 +1,4 @@
-%# templates/layouts/ado.html.ep
+%# templates/layouts/admin.html.ep
 <!DOCTYPE html>
 <html
   xmlns="http://www.w3.org/1999/xhtml"
