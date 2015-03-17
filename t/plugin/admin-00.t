@@ -5,6 +5,11 @@ use Test::Mojo;
 use File::Spec::Functions qw(splitdir catdir catfile);
 use File::Basename;
 use Cwd qw(abs_path);
+use Mojo::Util qw(slurp dumper decode encode sha1_sum squish);
+use Time::Piece;
+use Time::Seconds;
+use List::Util qw(shuffle);
+use Ado::Model::Users;
 
 
 #use our own ado.conf
@@ -89,4 +94,55 @@ subtest 'ado-users' => sub {
       ->status_is(200)->content_like(qr/not implemented/);
 };    #end ado-users
 
+#Admin gui
+# Let us add some more users
+my $names = [
+    shuffle split /\n/,
+    decode('UTF-8', slurp($home->rel_file('random_names.txt')))
+];
+my $i      = 6;
+my $output = '';
+my $rd     = Time::Piece->strptime("Sunday 3rd Nov, 1999", "%A %drd %b, %Y");
+
+foreach my $n (@$names) {
+    $n = squish $n;
+    my ($fn, $ln) = split(/\s/, $n);
+    my $un =
+        chr(100 + int(rand(15)))
+      . chr(101 + int(rand(10)))
+      . chr(102 + int(rand(11)))
+      . chr(103 + int(rand(12)))
+      . $i;
+    $ln //= $fn //= ucfirst($un);
+    my $p = sha1_sum($un . $i);
+    $rd += ONE_DAY + ONE_WEEK + int(rand(ONE_DAY)) if ($i % 2 == 0);
+    $rd -= ONE_DAY + int(rand(ONE_WEEK)) + ONE_WEEK + ONE_DAY if ($i % 3 == 0);
+    $rd += int(rand(ONE_DAY)) * int($i / 2) if ($i % 5 == 0);
+    $rd -= ONE_DAY + ONE_WEEK + ONE_WEEK + ONE_DAY * $i if ($rd->epoch > time);
+    my $dbix = $app->dbix;
+    $dbix->query('INSERT INTO `groups` VALUES(?,?,?,1,1,0)', $i, $un, $un);
+    $dbix->query(
+        q{
+INSERT INTO `users` VALUES(?1,?1,?2,?5,
+?3,?4,?2 || '@localhost', 'Do not delete. Used for tests only.',
+1,1,?7,?6,?8,?9,?10)
+}
+        , $i, $un, $fn, $ln, $p, $rd,
+        ($i =~ /6$/    ? int(rand(time)) : $rd),
+        ($i =~ /7$/    ? 1               : 0),
+        ($i % 2        ? $rd             : 0),
+        (($i % 8 == 0) ? ($rd + 120365)  : 0),
+    );
+    $dbix->query('INSERT INTO `user_group` VALUES(?1,?1)', $i);
+
+    $i++;
+}    #end foreach
+
+subtest 'ado-users-gui' => sub {
+
+#say dumper($names);
+    is(@{Ado::Model::Users->select_range(100, 100)},
+        100, 'good, we have enough users to play with');
+
+};
 done_testing();
