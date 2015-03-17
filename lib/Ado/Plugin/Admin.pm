@@ -9,15 +9,13 @@ sub register {
     $self->_init_admin_menu();
     $app->helper(admin_menu => \&_render_admin_menu);
 
-    #Layout when called via XMLHttpRequest
+    #switch layouts depending on XMLHttpRequest
     $app->hook(
         around_action => sub {
             my ($next, $c, $action, $last_in_stack) = @_;
-            if ($c->current_route =~ /^ado/ && $c->req->is_xhr) {
-                $c->layout('admin_xhr');
-            }
-            elsif ($c->current_route =~ /^ado/ && !$c->req->is_xhr) {
-                $c->layout('admin');
+            if ($c->stash->{controller} // '' =~ m|^ado|) {
+                if   ($c->req->is_xhr) { $c->layout('admin_xhr') }
+                else                   { $c->layout('admin') }
             }
             return $next->();
         }
