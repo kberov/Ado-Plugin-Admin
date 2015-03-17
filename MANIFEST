@@ -23,6 +23,7 @@ t/plugin/admin-00.t
 t/plugin/admin_menu.t
 t/plugin/ado.conf
 t/plugin/ado_admin.sqlite
+t/plugin/random_names.txt
 t/pod-coverage.t
 t/pod.t
 templates/ado/default/index.html.ep

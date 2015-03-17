@@ -23,8 +23,8 @@ chmod(oct('0600'), catfile($ENV{MOJO_HOME}, 'ado_admin.sqlite'))
 my $class = 'Ado::Plugin::Admin';
 my $t     = Test::Mojo->new('Ado');
 my $app   = $t->app;
+my $dbix  = $app->dbix;
 my $home  = $app->home;
-my $dbh   = $app->dbix->dbh;
 my $admin = $app->plugin('admin');
 
 isa_ok($admin, $class);
@@ -96,17 +96,27 @@ subtest 'ado-users' => sub {
 
 #Admin gui
 # Let us add some more users
+#The list of these users is publicly available at
+#http://bg.wikipedia.org/w/index.php?title=Списък_на_служители_и_сътрудници_на_Държавна_сигурност
 my $names = [
     shuffle split /\n/,
     decode('UTF-8', slurp($home->rel_file('random_names.txt')))
 ];
 my $i      = 6;
 my $output = '';
-my $rd     = Time::Piece->strptime("Sunday 3rd Nov, 1999", "%A %drd %b, %Y");
+my $rd     = Time::Piece->new();
+$rd->add_years(-10);
+
+#Clean database from previous test runs
+$dbix->query('DELETE from user_group WHERE user_id>=?', $i);
+$dbix->query('DELETE from users WHERE id>=?',           $i);
+$dbix->query('DELETE from groups WHERE id>=?',          $i);
+$dbix->query('VACUUM');
+
 
 foreach my $n (@$names) {
     $n = squish $n;
-    my ($fn, $ln) = split(/\s/, $n);
+    my ($fn, $ln, $de) = split(/\s/, $n, 3);
     my $un =
         chr(100 + int(rand(15)))
       . chr(101 + int(rand(10)))
@@ -118,20 +128,17 @@ foreach my $n (@$names) {
     $rd += ONE_DAY + ONE_WEEK + int(rand(ONE_DAY)) if ($i % 2 == 0);
     $rd -= ONE_DAY + int(rand(ONE_WEEK)) + ONE_WEEK + ONE_DAY if ($i % 3 == 0);
     $rd += int(rand(ONE_DAY)) * int($i / 2) if ($i % 5 == 0);
-    $rd -= ONE_DAY + ONE_WEEK + ONE_WEEK + ONE_DAY * $i if ($rd->epoch > time);
-    my $dbix = $app->dbix;
+    $rd -= ONE_DAY + ONE_WEEK + ONE_WEEK + ONE_DAY * $i if ($rd > time);
     $dbix->query('INSERT INTO `groups` VALUES(?,?,?,1,1,0)', $i, $un, $un);
     $dbix->query(
-        q{
-INSERT INTO `users` VALUES(?1,?1,?2,?5,
-?3,?4,?2 || '@localhost', 'Do not delete. Used for tests only.',
-1,1,?7,?6,?8,?9,?10)
-}
-        , $i, $un, $fn, $ln, $p, $rd,
-        ($i =~ /6$/    ? int(rand(time)) : $rd),
-        ($i =~ /7$/    ? 1               : 0),
-        ($i % 2        ? $rd             : 0),
-        (($i % 8 == 0) ? ($rd + 120365)  : 0),
+        q{INSERT INTO `users` VALUES(
+          ?1,?1,?2,?5,?3,?4,?2 || '@localhost', ?11,1,1,?7,?6,?8,?9,?10)},
+        $i, $un, $fn, $ln, $p, $rd->epoch,
+        ($i =~ /6$/    ? int(rand(time))       : $rd->epoch),
+        ($i =~ /7$/    ? 1                     : 0),
+        ($i % 2        ? $rd->epoch            : 0),
+        (($i % 8 == 0) ? ($rd->epoch + 120365) : 0),
+        $de
     );
     $dbix->query('INSERT INTO `user_group` VALUES(?1,?1)', $i);
 
@@ -141,7 +148,7 @@ INSERT INTO `users` VALUES(?1,?1,?2,?5,
 subtest 'ado-users-gui' => sub {
 
 #say dumper($names);
-    is(@{Ado::Model::Users->select_range(100, 100)},
+    is(@{Ado::Model::Users->select_range(100, 50)},
         100, 'good, we have enough users to play with');
 
 };
