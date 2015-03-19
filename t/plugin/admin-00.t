@@ -63,7 +63,26 @@ subtest run_plugin_with_own_ado_config_and_database => sub {
 
 
 };    #end run_plugin_with_own_ado_config_and_database
+my $U = 'Ado::Model::Users';
+
+#Clean database from previous test runs
+$dbix->begin;
+my $uid = $dbix->query(
+    q'
+  SELECT id from users WHERE id>(SELECT id from users WHERE login_name=?)
+  ', 'test2'
+)->hash;
+$uid //= {id => 5};
+$dbix->query('DELETE from user_group WHERE user_id>=?', $uid->{id});
+$dbix->query('DELETE from users WHERE id>=?',           $uid->{id});
+$dbix->query('DELETE from groups WHERE id>=?',          $uid->{id});
+$dbix->commit;
+$dbix->query('VACUUM');
+
 subtest 'ado-users' => sub {
+
+    #die $U->SQL('SELECT_DESCENDING');
+#my $udata = [$U->query($U->SQL('SELECT_DESCENDING'), 20,0)];
 
 #restapi
     $t->get_ok('/ado-users', {Accept => 'text/plain'})
@@ -79,7 +98,7 @@ subtest 'ado-users' => sub {
       ->json_has('/links', 'has links');
     $t->get_ok('/ado-users.json', form => {limit => 'bla', offset => 'noo'})
       ->status_is(200)
-      ->json_is('/data/0/login_name' => 'null', 'right login_name')
+      ->json_is('/data/0/login_name' => 'test2', 'right login_name')
       ->json_like('/links/0/href', qr/limit=20\&offset=0/,
         'has default limit and offset');
 
@@ -102,16 +121,10 @@ my $names = [
     shuffle split /\n/,
     decode('UTF-8', slurp($home->rel_file('random_names.txt')))
 ];
-my $i      = 6;
+my $i      = 5;
 my $output = '';
 my $rd     = Time::Piece->new();
 $rd->add_years(-10);
-
-#Clean database from previous test runs
-$dbix->query('DELETE from user_group WHERE user_id>=?', $i);
-$dbix->query('DELETE from users WHERE id>=?',           $i);
-$dbix->query('DELETE from groups WHERE id>=?',          $i);
-$dbix->query('VACUUM');
 
 
 foreach my $n (@$names) {
@@ -129,27 +142,102 @@ foreach my $n (@$names) {
     $rd -= ONE_DAY + int(rand(ONE_WEEK)) + ONE_WEEK + ONE_DAY if ($i % 3 == 0);
     $rd += int(rand(ONE_DAY)) * int($i / 2) if ($i % 5 == 0);
     $rd -= ONE_DAY + ONE_WEEK + ONE_WEEK + ONE_DAY * $i if ($rd > time);
-    $dbix->query('INSERT INTO `groups` VALUES(?,?,?,1,1,0)', $i, $un, $un);
     $dbix->query(
-        q{INSERT INTO `users` VALUES(
-          ?1,?1,?2,?5,?3,?4,?2 || '@localhost', ?11,1,1,?7,?6,?8,?9,?10)},
-        $i, $un, $fn, $ln, $p, $rd->epoch,
+        'INSERT INTO `groups` 
+      (name,description,created_by,changed_by,disabled)
+      VALUES(?,?,1,1,0)', $un, 'froup for ' . $un
+    );
+    $dbix->query(
+        q{INSERT INTO `users` 
+          (group_id,login_name,login_password,first_name,last_name,email,
+          description,created_by,changed_by,tstamp,reg_date,disabled,start_date,stop_date)
+          VALUES(
+            (SELECT id FROM groups WHERE name=?1),?2,?5,?3,?4,?2 || '@localhost', ?11,1,1,?7,?6,?8,?9,?10)},
+        $un, $un, $fn, $ln, $p, $rd->epoch,
         ($i =~ /6$/    ? int(rand(time))       : $rd->epoch),
         ($i =~ /7$/    ? 1                     : 0),
         ($i % 2        ? $rd->epoch            : 0),
         (($i % 8 == 0) ? ($rd->epoch + 120365) : 0),
         $de
     );
-    $dbix->query('INSERT INTO `user_group` VALUES(?1,?1)', $i);
+    $dbix->query(
+        'INSERT INTO user_group VALUES(
+        (SELECT id FROM users WHERE login_name=?),
+        (SELECT id FROM groups WHERE name=?))', $un, $un
+    );
 
     $i++;
 }    #end foreach
 
-subtest 'ado-users-gui' => sub {
+subtest 'ado-users-gui-list' => sub {
+    my $udata = [$U->query($U->SQL('SELECT_DESCENDING'), 10, 5)];
 
-#say dumper($names);
-    is(@{Ado::Model::Users->select_range(100, 50)},
-        100, 'good, we have enough users to play with');
+    is(@$udata, 10, 'good, we have enough users to play with');
+
+    #users' grid
+    $t->get_ok('/ado-users?limit=10&offset=5')->status_is(200)
+      ->text_like('style', qr|plugins/admin/admin.css|, 'admin.css is referred')
+      ->element_exists('#tab_title',          'We have list title')
+      ->element_exists('#tab_body',           'We have list body')
+      ->element_exists('.ui.one.column.grid', 'main grid for listing')
+      ->element_exists('#users_list_controls.right.aligned.two.column.row',
+        'header section for controls')
+      ->element_exists('.ui.pagination.menu .left.arrow.icon',  '<prev|')
+      ->element_exists('.ui.pagination.menu .right.arrow.icon', '|next>')
+      ->element_exists('.ui.pagination.menu .ui.dropdown.item',
+        'limit & offset')
+      ->element_exists('#users_list_controls .column .add.user.icon',
+        'add user button')
+      ->element_exists('#users_list_header.five.column.header.black.row',
+        'header section for column names')->element_exists(
+        '#users_list #u' . $udata->[0]->data->{id} . '.row',
+        "first row (${\ $udata->[0]->data->{id}}) id is present"
+        )->element_exists(
+        '#users_list #u' . $udata->[-1]->data->{id} . '.row',
+        "last row (${\ $udata->[-1]->data->{id}}) id is present"
+        )->element_exists('script[src="plugins/admin/admin.js"]',
+        'admin.js is referred')
+
+      #admin sidebar
+      ->element_exists('#admin_menu', 'admin_menu is rendered')
+      ->element_exists('#admin_menu a[href="/ado-users"]',
+        'Users item is rendered');
+
+    #grid requested by jQuery
+    my $udata = [$U->query($U->SQL('SELECT_DESCENDING'), 100, 5)];
+
+    is(@$udata, 100, 'good, we have enough users to play with');
+
+    $t->get_ok('/ado-users?limit=100&offset=5' =>
+          {'X-Requested-With' => 'XMLHttpRequest'})->status_is(200)
+      ->element_exists_not('#admin_menu', 'admin_menu is not rendered')
+      ->content_like(
+        qr|^\<\!--\sstart\sadousers\s--\>|x,
+        'only right side with grid via Ajax'
+      )->content_like(
+        qr|\<\!--\send\sadousers\s--\>\n$|x,
+        'only right side with grid via Ajax'
+      )->element_exists('#tab_title', 'We have list title')
+      ->element_exists('#tab_body',           'We have list body')
+      ->element_exists('.ui.one.column.grid', 'main grid for listing')
+      ->element_exists('#users_list_controls.right.aligned.two.column.row',
+        'header section for controls')
+      ->element_exists('.ui.pagination.menu .left.arrow.icon',  '<prev|')
+      ->element_exists('.ui.pagination.menu .right.arrow.icon', '|next>')
+      ->element_exists('.ui.pagination.menu .ui.dropdown.item',
+        'limit & offset')
+      ->element_exists('#users_list_controls .column .add.user.icon',
+        'add user button')
+      ->element_exists('#users_list_header.five.column.header.black.row',
+        'header section for column names')->element_exists(
+        '#users_list #u' . $udata->[0]->data->{id} . '.row',
+        "first row (${\ $udata->[0]->data->{id}}) id is present"
+        )->element_exists(
+        '#users_list #u' . $udata->[-1]->data->{id} . '.row',
+        "last row (${\ $udata->[-1]->data->{id}}) id is present"
+        )
+
+      #say dumper($udata->[-1]->data);
 
 };
 done_testing();

@@ -1,6 +1,11 @@
 package Ado::Control::Ado::Users;
 use Mojo::Base 'Ado::Control::Ado';
 
+my $U = 'Ado::Model::Users';
+$U->SQL('SELECT_DESCENDING' => $U->SQL('SELECT')
+      . ' ORDER BY id DESC '
+      . $U->SQL_LIMIT('?', '?'));
+
 #available users on this system
 sub list {
     my $c = shift;
@@ -13,16 +18,18 @@ sub list {
                 allow => sub { $_[0] =~ /^\d+$/ ? 1 : defined($_[0] = 0); }
             },
         },
-        {   limit  => $c->req->param('limit')  || 20,
-            offset => $c->req->param('offset') || 0,
+        {   limit  => $c->req->param('limit'),
+            offset => $c->req->param('offset'),
         }
     );
 
+    #$c->debug('$args ' => $c->dumper($args));
     $c->res->headers->content_range(
         "users $$args{offset}-${\($$args{limit} + $$args{offset})}/*");
 
+    state $SQL = $U->SQL('SELECT_DESCENDING');
     my $list_for_json = $c->list_for_json([$$args{limit}, $$args{offset}],
-        [Ado::Model::Users->select_range($$args{limit}, $$args{offset})]);
+        [$U->query($SQL, $$args{limit}, $$args{offset})]);
     $c->title($c->l('Users'));
 
     #content negotiation
