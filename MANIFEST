@@ -31,7 +31,6 @@ templates/ado/partials/admin_menu.html.ep
 templates/ado/partials/head.html.ep
 templates/ado/partials/menu.html.ep
 templates/ado/partials/menu_item.html.ep
-templates/ado/partials/topbar.html.ep
 templates/ado/users/list.html.ep
 templates/layouts/admin.html.ep
 templates/layouts/admin_xhr.html.ep

@@ -1,6 +1,8 @@
 Revision history for Ado-Plugin-Admin
 
-0.12 2015-03-19
+0.12 2015-03-30
+  - Added list 'adobar_links' to session and stash for pushing to it
+    addtional links for loged-in users and for anyone.
   - Added tests for listing users.
   - Implemented grid for listing users - alpha.
   - Implemented main sidebar - alpha.

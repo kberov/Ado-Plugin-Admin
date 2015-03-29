@@ -7,17 +7,36 @@ our $VERSION = '0.12';
 sub register {
     my ($self, $app, $config) = shift->initialise(@_);
     $self->_init_admin_menu();
+
+    #User specific Admin menu
     $app->helper(admin_menu => \&_render_admin_menu);
 
     #switch layouts depending on XMLHttpRequest
     $app->hook(
         around_action => sub {
             my ($next, $c, $action, $last_in_stack) = @_;
-            if ($c->stash->{controller} // '' =~ m|^ado|) {
+            if ($c->user->login_name ne 'guest') {
+
+                #Add link to admin area for logged-in users
+                List::Util::first(
+                    sub { $_->{href} eq '/ado' },
+                    @{$c->stash->{adobar_links}}
+                  )
+                  || push @{$c->stash->{adobar_links}},
+                  {icon => 'dashboard', href => '/ado', text => 'Dashboard'};
+            }
+
+            if (($c->stash->{controller} // '') =~ m|^ado|) {
                 if   ($c->req->is_xhr) { $c->layout('admin_xhr') }
                 else                   { $c->layout('admin') }
             }
             return $next->();
+        }
+    );
+    $app->hook(
+        after_login => sub {
+            push @{$_[0]->session->{adobar_links}},
+              {icon => 'dashboard', href => '/ado', text => 'Dashboard'};
         }
     );
 

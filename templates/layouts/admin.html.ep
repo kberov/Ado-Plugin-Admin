@@ -5,7 +5,7 @@
   xml:lang="<%= $language %>"
   lang="<%= $language %>">
   <head><%= include 'ado/partials/head'; %></head>
-  <body><%= include 'ado/partials/topbar' %>
+  <body><%= include 'partials/adobar' %>
   <main class="ui top attached main container">
     <div class="ui top attached same height pushable">
         <%== admin_menu %>
