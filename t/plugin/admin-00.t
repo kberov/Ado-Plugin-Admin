@@ -9,7 +9,6 @@ use Mojo::Util qw(slurp dumper decode encode sha1_sum squish);
 use Time::Piece;
 use Time::Seconds;
 use List::Util qw(shuffle);
-use Ado::Model::Users;
 
 
 #use our own ado.conf
@@ -204,7 +203,7 @@ subtest 'ado-users-gui-list' => sub {
         'Users item is rendered');
 
     #grid requested by jQuery
-    my $udata = [$U->query($U->SQL('SELECT_DESCENDING'), 100, 5)];
+    $udata = [$U->query($U->SQL('SELECT_DESCENDING'), 100, 5)];
 
     is(@$udata, 100, 'good, we have enough users to play with');
 

@@ -1,14 +1,18 @@
 package Ado::Control::Ado::Users;
 use Mojo::Base 'Ado::Control::Ado';
 
-my $U = 'Ado::Model::Users';
-$U->SQL('SELECT_DESCENDING' => $U->SQL('SELECT')
-      . ' ORDER BY id DESC '
-      . $U->SQL_LIMIT('?', '?'));
-
 #available users on this system
 sub list {
     my $c = shift;
+
+    #do this once - only the first time when tis method is executed
+    state $U = 'Ado::Model::Users';
+    state $SELECT_DESCENDING =
+      $U->SQL('SELECT_DESCENDING' => $U->SQL('SELECT')
+          . ' ORDER BY id DESC '
+          . $U->SQL_LIMIT('?', '?'));
+    state $SQL = $U->SQL('SELECT_DESCENDING');
+
     $c->require_formats('json', 'html') || return;
     my $args = Params::Check::check(
         {   limit => {
@@ -27,7 +31,6 @@ sub list {
     $c->res->headers->content_range(
         "users $$args{offset}-${\($$args{limit} + $$args{offset})}/*");
 
-    state $SQL = $U->SQL('SELECT_DESCENDING');
     my $list_for_json = $c->list_for_json([$$args{limit}, $$args{offset}],
         [$U->query($SQL, $$args{limit}, $$args{offset})]);
     $c->title($c->l('Users'));
@@ -69,6 +72,7 @@ Ado::Control::Ado::Users - The controller to manage users.
 
 =head1 SYNOPSIS
 
+  # Start Ado!
   #in your browser go to
   http://your-host/ado-users/list
   #or
@@ -85,23 +89,22 @@ back-office application.
 
 =head1 ATTRIBUTES
 
-L<Ado::Control::Ado::Users> inherits all the attributes from 
-<Ado::Control::Ado>.
+L<Ado::Control::Ado::Users> inherits all the attributes from
+L<Ado::Control::Ado>.
 
 =head1 METHODS/ACTIONS
 
 L<Ado::Control::Ado::Users> inherits all methods from
 L<Ado::Control::Ado> and implements the following new ones.
-        
+   
 =head2 list
 
-Displays the users this system has.
-Uses the request parameters C<limit> and C<offset> to display a range of items
-starting at C<offset> and ending at C<offset>+C<limit>.
-This method serves the resource C</ado-users/list.json>.
-If other format is requested returns status 415 with C<Content-location> header
-pointing to the proper URI.
-See L<http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16> and
+Displays the users this system has. Uses the request parameters C<limit> and
+C<offset> to display a range of items starting at C<offset> and ending at
+C<offset>+C<limit>. This method serves the resource C</ado-users/list.json>. If
+other format is requested returns status 415 with C<Content-location> header
+pointing to the proper URI. See
+L<http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.16> and
 L<http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.14>.
 
 =head2 add
