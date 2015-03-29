@@ -18,8 +18,8 @@ sub list {
                 allow => sub { $_[0] =~ /^\d+$/ ? 1 : defined($_[0] = 0); }
             },
         },
-        {   limit  => $c->req->param('limit'),
-            offset => $c->req->param('offset'),
+        {   limit  => $c->req->param('limit')  // '',
+            offset => $c->req->param('offset') // '',
         }
     );
 
