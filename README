@@ -50,22 +50,13 @@ HELPERS
 
       <%= admin_menu %>
 
-SEE ALSO
-    Ado::UI::Menu, Ado::Control::Ado::Default, Ado::Control::Ado::Users,
-    Ado::Plugin, Mojolicious::Guides::Growing, Ado::Manual, Mojolicious,
-    <http://mojolicio.us>.
+CONTINUOUS INTEGRATION
+    We would like to know that our software is always in good health. We
+    count on friendly developers and organizations to install and test it
+    continuously.
 
-AUTHOR
-    Krasimir Berov
+    CPAN Testers Reports for Ado::PLugin::Admin
+    <http://www.cpantesters.org/distro/A/Ado-Plugin-Admin.html>
 
-COPYRIGHT AND LICENSE
-    Copyright 2015 Krasimir Berov.
-
-    This program is free software, you can redistribute it and/or modify it
-    under the terms of the GNU Lesser General Public License v3 (LGPL-3.0).
-    You may copy, distribute and modify the software provided that
-    modifications are open source. However, software that includes the
-    license may release under a different license.
-
-    See http://opensource.org/licenses/lgpl-3.0.html for more information.
+    Travis-CI <https://travis-ci.org/kberov/Ado-Plugin-Admin>
 

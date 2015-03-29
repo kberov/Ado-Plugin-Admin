@@ -4,7 +4,7 @@
       "Krasimir Berov <berov@cpan.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.421",
+   "generated_by" : "Module::Build version 0.4211",
    "keywords" : [
       "Ado::Plugin::Admin",
       "Mojolicious",
@@ -36,12 +36,13 @@
       },
       "configure" : {
          "requires" : {
+            "Ado" : "0",
             "Module::Build" : "0.42"
          }
       },
       "runtime" : {
          "requires" : {
-            "Ado" : "0.82"
+            "Ado" : "0.86"
          }
       }
    },
@@ -57,7 +58,7 @@
       },
       "Ado::Plugin::Admin" : {
          "file" : "lib/Ado/Plugin/Admin.pm",
-         "version" : "0.11"
+         "version" : "0.12"
       },
       "Ado::UI::Menu" : {
          "file" : "lib/Ado/UI/Menu.pm"
@@ -72,5 +73,5 @@
          "url" : "https://github.com/kberov/Ado-Plugin-Admin"
       }
    },
-   "version" : "0.11"
+   "version" : "0.12"
 }
