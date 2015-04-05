@@ -1,5 +1,7 @@
 Revision history for Ado-Plugin-Admin
 
+0.14 2015-04-05
+  - Fixed html section in Admin.pm documentation.
 
 0.13 2015-04-05
   - Upgraded to Ado 0.87!

@@ -2,7 +2,7 @@ package Ado::Plugin::Admin;
 use Mojo::Base 'Ado::Plugin';
 use Ado::UI::Menu;
 use Mojo::Util qw(monkey_patch);
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 sub register {
     my ($self, $app, $config) = shift->initialise(@_);
@@ -163,7 +163,7 @@ L<Travis-CI|https://travis-ci.org/kberov/Ado-Plugin-Admin>
   src="https://travis-ci.org/kberov/Ado-Plugin-Admin.svg?branch=master"
     ></a><br /><br />
 
-end html
+=end html
 
 =head1 SEE ALSO
 

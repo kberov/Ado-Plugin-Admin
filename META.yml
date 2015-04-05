@@ -35,7 +35,7 @@ provides:
     file: lib/Ado/Control/Ado/Users.pm
   Ado::Plugin::Admin:
     file: lib/Ado/Plugin/Admin.pm
-    version: '0.13'
+    version: '0.14'
   Ado::UI::Menu:
     file: lib/Ado/UI/Menu.pm
 requires:
@@ -43,4 +43,4 @@ requires:
 resources:
   bugtracker: https://github.com/kberov/Ado-Plugin-Admin/issues
   repository: https://github.com/kberov/Ado-Plugin-Admin
-version: '0.13'
+version: '0.14'

@@ -13,6 +13,7 @@
     $.get(this.href, render_response);
     return false;
   }
+  
   /**
   Causes every link loaded in the #tabbody to
   behave the same way as the links in the main menu.
