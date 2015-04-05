@@ -42,7 +42,7 @@
       },
       "runtime" : {
          "requires" : {
-            "Ado" : "0.86"
+            "Ado" : "0.87"
          }
       }
    },
@@ -58,7 +58,7 @@
       },
       "Ado::Plugin::Admin" : {
          "file" : "lib/Ado/Plugin/Admin.pm",
-         "version" : "0.12"
+         "version" : "0.13"
       },
       "Ado::UI::Menu" : {
          "file" : "lib/Ado/UI/Menu.pm"
@@ -73,5 +73,5 @@
          "url" : "https://github.com/kberov/Ado-Plugin-Admin"
       }
    },
-   "version" : "0.12"
+   "version" : "0.13"
 }

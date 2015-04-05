@@ -96,7 +96,7 @@ L<Ado::Control::Ado>.
 
 L<Ado::Control::Ado::Users> inherits all methods from
 L<Ado::Control::Ado> and implements the following new ones.
-   
+
 =head2 list
 
 Displays the users this system has. Uses the request parameters C<limit> and

@@ -1,7 +1,12 @@
 Revision history for Ado-Plugin-Admin
 
-0.12 2015-03-29
 
+0.13 2015-04-05
+  - Upgraded to Ado 0.87!
+  - Cleaned up MANIFEST. Added MANIFEST.SKIP to MANIFEST.
+
+
+0.12 2015-03-29
   - Upgraded to Ado 0.86!
   - Added list 'adobar_links' to session and stash for pushing to it
     addtional links for loged-in users and for anyone.

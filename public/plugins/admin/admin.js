@@ -13,6 +13,16 @@
     $.get(this.href, render_response);
     return false;
   }
+  /**
+  Causes every link loaded in the #tabbody to
+  behave the same way as the links in the main menu.
+  This causes the side efect that click events 
+  set within those pages get overwritten by this function, 
+  because it is executed after the content is loaded
+  and JS in it executed.
+  Todo: Think If we really need this or plugins may
+  do it explicitly if they need this behavior. 
+  */
   function render_response (res) {
       $('#main_content').html(res);
       $('title').text($('#tab_title').text());

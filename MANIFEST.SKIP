@@ -60,27 +60,8 @@
 # Avoid configuration metadata file
 ^MYMETA\.
 
-# Avoid Module::Build generated and utility files.
-\bBuild$
-\bBuild.bat$
-\b_build
-\bBuild.COM$
-\bBUILD.COM$
-\bbuild.com$
-^MANIFEST\.SKIP
-
 # Avoid archives of this distribution
 \bAdo-Plugin-Admin-[\d\.\_]+
-# Avoid version control files.
-\bRCS\b
-\bCVS\b
-\bSCCS\b
-,v$
-\B\.svn\b
-\B\.git\b
-\B\.gitignore\b
-\b_darcs\b
-\B\.cvsignore$
 
 # Avoid plugin specific SQLite files generated during testing
 ado_\w+\d+\.sqlite

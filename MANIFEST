@@ -10,6 +10,7 @@ lib/Ado/Plugin/Admin.pm
 lib/Ado/UI/Menu.pm
 LICENSE
 MANIFEST			This list of files
+MANIFEST.SKIP
 META.json
 META.yml
 public/plugins/admin/admin.css
